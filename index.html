@@ -1,0 +1,2438 @@
+<!DOCTYPE html>
+<html lang="en">
+ <meta content="text/html;charset=utf-8" http-equiv="content-type"/>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"/>
+  <meta content="en-us" http-equiv="content-language"/>
+  <meta content="angelcore" name="title"/>
+  <meta content="website" property="og:type"/>
+  <meta content="welcome to angelcore" name="description"/>
+  <meta content="© 2026 angelcore. All rights reserved." name="copyright"/>
+  <meta content="angelcore" property="og:title"/>
+  <meta content="images/bg.jpg" property="og:image"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="images/bg.jpg" name="twitter:image"/>
+  <title>
+   A N G E L C O R E
+  </title>
+  <meta content="#000000" name="theme-color"/>
+  <link href="data:," rel="icon"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script src="js/gsap.min.js">
+  </script>
+  <script src="js/three.min.js">
+  </script>
+  <script src="js/opentype.min.js">
+  </script>
+  <script src="js/TTFLoader.js">
+  </script>
+  <script src="js/bilboFont.js">
+  </script>
+  <script src="js/protect.js?v=2">
+  </script>
+  <style>
+   @font-face {
+        font-family: Bilbo;
+        src: url("fonts/bilboregular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: SunandMoon;
+        src: url("fonts/SunandMoon.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+      .vortex-container {
+        position: fixed;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 500px;
+        perspective: 1000px;
+        z-index: 500;
+        pointer-events: none;
+      }
+      .vortex-scene {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        pointer-events: auto;
+      }
+      .vortex-group {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+      }
+      .vortex-label {
+        position: absolute;
+        left: 50%;
+        top: 5%;
+        transform: translate(-50%, -50%);
+        font-size: 52px;
+        letter-spacing: 4px;
+        opacity: 0.3;
+        text-transform: uppercase;
+        pointer-events: none;
+        white-space: nowrap;
+        font-weight: 700;
+        will-change: transform;
+      }
+      .vortex-card {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -90px;
+        margin-top: -140px;
+        width: 180px;
+        height: 280px;
+        transform-style: preserve-3d;
+        cursor: pointer;
+        will-change: transform, opacity;
+      }
+      .card-face {
+        overflow: visible;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: rgba(20, 20, 25, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease,
+          background 0.3s ease;
+      }
+      .card-face::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("images/bayer.png") repeat;
+        background-size: 64px 64px;
+        mix-blend-mode: color-dodge;
+        opacity: 0.12;
+        pointer-events: none;
+        z-index: 2;
+      }
+      .vortex-card:hover .card-face {
+        background: rgba(30, 30, 35, 0.9);
+        border-color: rgba(255, 255, 255, 0.8);
+        box-shadow:
+          0 0 25px rgba(255, 255, 255, 0.1),
+          0 10px 40px rgba(255, 255, 255, 0.08);
+      }
+      .card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(0.3) contrast(1.1);
+        transition: filter 0.3s ease;
+      }
+      .vortex-card:hover .card-image {
+        filter: grayscale(0) contrast(1);
+      }
+      .card-image-placeholder {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03) 0,
+          rgba(255, 255, 255, 0.01) 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8pt;
+        color: rgba(255, 255, 255, 0.15);
+        letter-spacing: 2px;
+      }
+      .card-label {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 8px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #fff;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        overflow: visible;
+      }
+      .vortex-card:hover .card-label {
+        background: rgba(255, 255, 255, 0.95);
+        color: #000;
+      }
+      .vortex-card::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          ellipse at center,
+          rgba(255, 255, 255, 0.06) 0,
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+      }
+      .vortex-card:hover::after {
+        opacity: 1;
+      }
+      .carousel-tutorial {
+        position: absolute;
+        left: 50%;
+        bottom: 10px;
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 16px;
+        transform: translate(-50%, 10px);
+        color: rgba(255, 255, 255, 0.72);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 12px;
+        font-style: italic;
+        letter-spacing: 0.75px;
+        line-height: 1;
+        white-space: nowrap;
+        text-transform: lowercase;
+        text-shadow:
+          0 1px 2px #000,
+          0 0 8px rgba(255, 255, 255, 0.18);
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease,
+          visibility 0s linear 0.7s;
+      }
+      .carousel-tutorial::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(0, 0, 0, 0.48) 22%,
+          rgba(0, 0, 0, 0.48) 78%,
+          transparent
+        );
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.025);
+      }
+      .carousel-tutorial.is-visible {
+        transform: translate(-50%, 0);
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0.8s, 0.8s, 0s;
+      }
+      .carousel-tutorial.is-dismissed {
+        transform: translate(-50%, 10px);
+        opacity: 0;
+        visibility: hidden;
+      }
+      .carousel-tutorial-icon {
+        width: 24px;
+        height: 24px;
+        flex: 0 0 24px;
+        object-fit: contain;
+        opacity: 0.78;
+        filter: invert(1) drop-shadow(0 0 4px rgba(255, 255, 255, 0.22));
+        animation: carouselTutorialIcon 2.4s ease-in-out infinite;
+      }
+      .carousel-tutorial-arrow {
+        display: inline-block;
+        margin: 0 3px;
+        color: rgba(255, 255, 255, 0.9);
+        font-style: normal;
+        animation: carouselTutorialArrow 2.4s ease-in-out infinite;
+      }
+      .carousel-tutorial-touch {
+        display: none;
+      }
+      @keyframes carouselTutorialIcon {
+        0%,
+        100% {
+          transform: translateY(-1px);
+          opacity: 0.58;
+        }
+        50% {
+          transform: translateY(2px);
+          opacity: 0.92;
+        }
+      }
+      @keyframes carouselTutorialArrow {
+        0%,
+        100% {
+          transform: scaleX(0.82);
+          opacity: 0.55;
+        }
+        50% {
+          transform: scaleX(1.08);
+          opacity: 1;
+        }
+      }
+      @media (hover: none), (pointer: coarse) {
+        .carousel-tutorial-desktop {
+          display: none;
+        }
+        .carousel-tutorial-touch {
+          display: inline;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .carousel-tutorial,
+        .carousel-tutorial-icon,
+        .carousel-tutorial-arrow {
+          animation: none;
+          transition-duration: 0.01ms;
+        }
+      }
+      @media (max-width: 900px) {
+        .vortex-container {
+          height: 400px;
+        }
+        .vortex-card {
+          width: 140px;
+          height: 220px;
+          margin-left: -70px;
+          margin-top: -110px;
+        }
+        .card-image,
+        .card-image-placeholder {
+          height: 155px;
+        }
+        .card-label {
+          font-size: 12px;
+          letter-spacing: 2px;
+        }
+      }
+      @media (max-width: 600px) {
+        .vortex-container {
+          height: 350px;
+        }
+        .vortex-card {
+          width: 140px;
+          height: 190px;
+          margin-left: -70px;
+          margin-top: -95px;
+        }
+        .card-image,
+        .card-image-placeholder {
+          height: 130px;
+        }
+        .card-label {
+          font-size: 11px;
+          letter-spacing: 0;
+        }
+      }
+      .profile-view {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 550;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .profile-view.active {
+        visibility: inherit;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .profile-card {
+        position: relative;
+        width: 230px;
+        height: 350px;
+        flex-shrink: 0;
+        background: rgba(0, 0, 0, 0.95);
+        outline: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        overflow: hidden;
+      }
+      .profile-card .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .profile-card .card-image-placeholder {
+        height: 100%;
+      }
+      .profile-info {
+        display: flex;
+        flex-direction: column;
+        max-width: 320px;
+      }
+      .profile-name {
+        font-family: Bilbo, serif;
+        font-size: 32pt;
+        font-weight: 400;
+        margin: 0;
+        letter-spacing: 1px;
+        line-height: 1.1;
+        color: #fff;
+        text-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.95),
+          0 0 12px rgba(0, 0, 0, 0.95),
+          0 0 45px rgba(0, 0, 0, 0.9);
+      }
+      .profile-aliases {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-start;
+        cursor: default;
+        user-select: none;
+      }
+      .alias-current {
+        display: block;
+        margin: 0;
+        font-family: Bilbo, serif;
+        font-size: 32pt;
+        font-weight: 400;
+        letter-spacing: 1px;
+        line-height: 1.1;
+        color: #fff;
+        text-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.95),
+          0 0 12px rgba(0, 0, 0, 0.95),
+          0 0 45px rgba(0, 0, 0, 0.9);
+        will-change: transform, opacity;
+        transform-origin: center center;
+      }
+      .alias-tooltip {
+        position: absolute;
+        bottom: calc(100% + 16px);
+        left: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 18px;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(14px);
+        outline: 1px solid rgba(255, 255, 255, 0.16);
+        border: 1px dotted rgba(255, 255, 255, 0.15);
+        box-shadow:
+          0 16px 44px rgba(0, 0, 0, 0.75),
+          inset 0 0 20px rgba(255, 255, 255, 0.03);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 10.5pt;
+        letter-spacing: 2.5px;
+        text-transform: lowercase;
+        color: #cfcfcf;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(10px) scale(0.8);
+        transform-origin: bottom left;
+        transition:
+          opacity 0.3s ease,
+          transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+          visibility 0.3s;
+      }
+      .alias-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 26px;
+        border: 7px solid transparent;
+        border-top-color: rgba(0, 0, 0, 0.85);
+        filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.4));
+      }
+      .alias-tooltip .al {
+        font-style: italic;
+        color: #fff;
+        text-shadow: 0 0 14px rgba(255, 255, 255, 0.25);
+      }
+      .alias-tooltip .sep {
+        opacity: 0.35;
+        font-size: 6pt;
+        color: #fff;
+      }
+      .profile-aliases:hover .alias-tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+      .profile-tagline {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 10pt;
+        font-style: italic;
+        margin: 8px 0 20px 0;
+        color: #f0f0f0;
+        letter-spacing: 0.3px;
+        line-height: 1.4;
+        text-shadow:
+          0 1px 3px rgba(0, 0, 0, 0.95),
+          0 0 10px rgba(0, 0, 0, 0.9);
+      }
+      .profile-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .profile-links a {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 9.5pt;
+        font-style: italic;
+        color: #fff;
+        text-decoration: none;
+        padding: 5px 16px;
+        outline: 1px dotted rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.95);
+        width: fit-content;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        letter-spacing: 0.5px;
+        min-width: 60px;
+        text-align: center;
+      }
+      .profile-links a:hover {
+        background: rgba(255, 255, 255, 0.95);
+        color: #000;
+        outline: 1px solid #fff;
+      }
+      .skip-song-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 600;
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px dotted rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 9.5pt;
+        font-style: italic;
+        cursor: pointer;
+        padding: 4px 12px;
+        outline: 0;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .skip-song-btn.visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .skip-song-btn:hover {
+        background: rgba(255, 255, 255, 0.95);
+        color: #000;
+        border: 1px solid #fff;
+      }
+      .profile-banner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vw;
+        height: 80vh;
+        max-height: 600px;
+        object-fit: cover;
+        z-index: 525;
+        filter: grayscale(1) brightness(0.28) contrast(1.05);
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 18%,
+          black 82%,
+          transparent 100%
+        );
+        mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 18%,
+          black 82%,
+          transparent 100%
+        );
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform-origin: center center;
+      }
+      .profile-banner.active {
+        visibility: visible;
+      }
+      .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 600;
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px dotted rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-size: 10pt;
+        cursor: pointer;
+        padding: 4px 10px;
+        outline: 0;
+        font-style: italic;
+        transition: all 0.3s ease;
+        visibility: hidden;
+        opacity: 0;
+      }
+      .back-btn.visible {
+        visibility: inherit;
+        opacity: 1;
+      }
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.95);
+        color: #000;
+        outline: 1px solid #fff;
+      }
+      @media (max-width: 900px) {
+        .profile-view {
+          flex-direction: column;
+          gap: 30px;
+        }
+        .profile-card {
+          width: 180px;
+          height: 280px;
+        }
+        .profile-info {
+          align-items: center;
+          text-align: center;
+        }
+        .profile-aliases {
+          align-self: center;
+        }
+        .profile-links {
+          align-items: center;
+        }
+        .profile-np {
+          text-align: center;
+        }
+      }
+      .landing-np {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 501;
+        font-size: 9pt;
+        font-style: italic;
+        opacity: 0.5;
+        cursor: default;
+      }
+      .landing-np .np-label {
+        font-weight: 700;
+        color: #555;
+      }
+      .landing-np .np-artist,
+      .landing-np .np-track {
+        color: #fff;
+      }
+      .landing-np .np-bar-wrap {
+        width: 130px;
+        height: 3px;
+        background: #000;
+        outline: 1px solid #222;
+        margin-top: 4px;
+        overflow: hidden;
+      }
+      .landing-np .np-bar {
+        height: 100%;
+        background: #fff;
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+      .profile-dimmer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 520;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+      }
+      .profile-dimmer.active {
+        visibility: visible;
+      }
+      body.profile-open .contrastadjust,
+      body.profile-open .matrix,
+      body.profile-open .matrix2,
+      body.profile-open .matrix3 {
+        z-index: 531;
+      }
+      body.profile-open .matrix2 {
+        z-index: 532;
+      }
+      body.profile-open .contrastadjust {
+        z-index: 533;
+      }
+      body.profile-open .matrix3 {
+        z-index: 534;
+      }
+      .bottom-audio-player {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 600;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: rgba(5, 5, 5, 0.9);
+        border: 1px dotted rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(8px);
+        padding: 7px 18px;
+        color: #fff;
+        box-sizing: border-box;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 0.5s ease,
+          visibility 0.5s ease;
+        min-width: 380px;
+        max-width: min(92vw, 540px);
+      }
+      .bottom-audio-player.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .audio-equalizer {
+        display: flex;
+        align-items: flex-end;
+        gap: 2px;
+        height: 16px;
+        width: 18px;
+        cursor: pointer;
+        flex-shrink: 0;
+        padding-bottom: 1px;
+      }
+      .audio-equalizer .eq-bar {
+        width: 2px;
+        background: #e2e2e2;
+        border-radius: 1px;
+        display: block;
+      }
+      .audio-equalizer .bar-1 {
+        height: 10px;
+      }
+      .audio-equalizer .bar-2 {
+        height: 6px;
+      }
+      .audio-equalizer .bar-3 {
+        height: 13px;
+      }
+      .audio-equalizer .bar-4 {
+        height: 9px;
+      }
+      .audio-equalizer .bar-5 {
+        height: 5px;
+      }
+      .audio-equalizer.playing .bar-1 {
+        animation: eqDance1 0.75s ease-in-out infinite alternate;
+      }
+      .audio-equalizer.playing .bar-2 {
+        animation: eqDance2 0.55s ease-in-out infinite alternate 0.1s;
+      }
+      .audio-equalizer.playing .bar-3 {
+        animation: eqDance3 0.85s ease-in-out infinite alternate 0.2s;
+      }
+      .audio-equalizer.playing .bar-4 {
+        animation: eqDance4 0.65s ease-in-out infinite alternate 0.15s;
+      }
+      .audio-equalizer.playing .bar-5 {
+        animation: eqDance5 0.8s ease-in-out infinite alternate 50ms;
+      }
+      @keyframes eqDance1 {
+        0% {
+          height: 3px;
+        }
+        100% {
+          height: 15px;
+        }
+      }
+      @keyframes eqDance2 {
+        0% {
+          height: 13px;
+        }
+        100% {
+          height: 3px;
+        }
+      }
+      @keyframes eqDance3 {
+        0% {
+          height: 4px;
+        }
+        100% {
+          height: 16px;
+        }
+      }
+      @keyframes eqDance4 {
+        0% {
+          height: 14px;
+        }
+        100% {
+          height: 5px;
+        }
+      }
+      @keyframes eqDance5 {
+        0% {
+          height: 4px;
+        }
+        100% {
+          height: 12px;
+        }
+      }
+      .audio-meta {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 0;
+        flex: 1;
+        cursor: pointer;
+        user-select: none;
+      }
+      .audio-track-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-style: italic;
+        font-size: 11pt;
+        color: #e8e8e8;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: 0.5px;
+        line-height: 1.25;
+      }
+      .audio-artist-name {
+        font-family: Georgia, "Times New Roman", serif;
+        font-style: italic;
+        font-size: 7.5pt;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        line-height: 1.2;
+        margin-top: 2px;
+      }
+      .audio-progress-wrap {
+        width: 140px;
+        height: 3px;
+        background: #000;
+        outline: 1px solid rgba(255, 255, 255, 0.25);
+        position: relative;
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-left: 8px;
+      }
+      .audio-progress-bar {
+        height: 100%;
+        width: 0%;
+        background: #fff;
+        pointer-events: none;
+        transition: width 0.1s linear;
+      }
+      @media (max-width: 600px) {
+        .bottom-audio-player {
+          min-width: auto;
+          width: calc(100vw - 32px);
+          padding: 7px 12px;
+          gap: 12px;
+          bottom: 16px;
+        }
+        .audio-track-title {
+          font-size: 9.5pt;
+          max-width: 140px;
+        }
+        .audio-progress-wrap {
+          width: 75px;
+        }
+      }
+      .copy-toast {
+        position: fixed;
+        bottom: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #fff;
+        color: #000;
+        padding: 6px 16px;
+        font-size: 9pt;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+      .copy-toast.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      #button4,
+      #latestEntry,
+      #loading2,
+      #navigation,
+      #navigationClose,
+      #navigationTwo,
+      #openAbout,
+      #settingsAlert,
+      #settingsSet,
+      .aboutMe,
+      .ageRating,
+      .moonObject,
+      .overlayScreen1,
+      .overlayScreen2,
+      .overlayre1,
+      .overlayre2,
+      .overlayre3,
+      .playerOpacity,
+      .statusWrapper,
+      .warning-banner,
+      .warning-toggle,
+      .window1 {
+        display: none !important;
+      }
+      .pageTitle {
+        visibility: visible !important;
+        left: 50% !important;
+        top: max(40px, calc(50% - 320px)) !important;
+        transform: translateX(-50%) !important;
+        text-align: center !important;
+        font-size: 96pt !important;
+        font-family: Bilbo, serif !important;
+        z-index: 501 !important;
+        color: #fff !important;
+        text-shadow: none !important;
+      }
+      .splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(40px);
+        cursor: pointer;
+      }
+      .splash-3d {
+        position: absolute;
+        inset: 0;
+      }
+      .splash-3d canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition:
+          transform 0.8s cubic-bezier(0.33, 1, 0.68, 1),
+          filter 0.8s ease,
+          opacity 0.8s ease;
+        will-change: transform, filter, opacity;
+      }
+      .splash-screen.fade-out .splash-3d canvas {
+        transform: scale(0.94) translateY(10px);
+        filter: blur(8px);
+        opacity: 0.4;
+      }
+      .splash-content {
+        text-align: center;
+      }
+      .splash-text {
+        font-family: Bilbo, serif;
+        font-size: 120pt;
+        color: #fff;
+        font-weight: 400;
+        letter-spacing: 2px;
+        display: block;
+        animation: splashSway 4s ease-in-out infinite;
+      }
+      @keyframes splashSway {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: translateY(15px) scale(1.02);
+          opacity: 1;
+        }
+      }
+      .splash-screen.fade-out {
+        animation: splashFadeOut 0.8s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+      }
+      @keyframes splashFadeOut {
+        0% {
+          opacity: 1;
+          backdrop-filter: blur(40px);
+        }
+        100% {
+          opacity: 0;
+          backdrop-filter: blur(0px);
+        }
+      }
+      .portfolioWorks {
+        visibility: hidden;
+      }
+      .moon-symbol {
+        font-family: SunandMoon, serif;
+        font-size: 42pt;
+        display: block;
+        margin-bottom: 6px;
+        opacity: 0.6;
+        font-style: normal;
+      }
+      .pageTitle .fields {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        display: block;
+        margin-top: 4px;
+      }
+      .vulgateClementine {
+        left: 50% !important;
+        top: calc(55% + 220px) !important;
+        transform: translateX(-50%) translateY(-50%) !important;
+        text-align: center !important;
+        width: 60% !important;
+        z-index: 501 !important;
+      }
+      .vulgateClementine span {
+        font-size: 11pt !important;
+      }
+      @media (max-width: 900px) {
+        .pageTitle {
+          top: calc(50% - 200px) !important;
+          font-size: 26pt !important;
+        }
+        .vulgateClementine {
+          top: calc(50% + 190px) !important;
+          width: 80% !important;
+        }
+      }
+      @media (max-width: 600px) {
+        .pageTitle {
+          top: calc(50% - 180px) !important;
+          font-size: 21pt !important;
+        }
+        .vulgateClementine {
+          top: calc(50% + 170px) !important;
+          width: 90% !important;
+        }
+        .vulgateClementine span {
+          font-size: 9pt !important;
+        }
+      }
+      .site-sign {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 600;
+        font-family: Bilbo, serif;
+        font-size: 26pt;
+        letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.5);
+        pointer-events: none;
+        user-select: none;
+      }
+      .hidden-section {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+      .archives-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 600;
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px dotted rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-size: 10pt;
+        cursor: pointer;
+        padding: 4px 14px;
+        outline: 0;
+        font-style: italic;
+        letter-spacing: 1px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .archives-btn:hover {
+        background: rgba(255, 255, 255, 0.95);
+        color: #000;
+        border: 1px solid #fff;
+      }
+      .page-transition-overlay {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        z-index: 99999;
+        pointer-events: none;
+        opacity: 0;
+      }
+      .auth-btn {
+        position: fixed;
+        top: 20px;
+        right: 150px;
+        z-index: 600;
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px dotted rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-size: 10pt;
+        cursor: pointer;
+        padding: 4px 14px;
+        outline: 0;
+        font-style: italic;
+        letter-spacing: 1px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .auth-btn:hover {
+        background: rgba(255, 255, 255, 0.95);
+        color: #000;
+        border: 1px solid #fff;
+      }
+      * {
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important;
+        -webkit-touch-callout: none !important;
+        -webkit-user-drag: none !important;
+      }
+  </style>
+ </head>
+ <body oncontextmenu="return !1;">
+  <audio id="bgMusic" loop="" preload="auto" src="media/ac-01.mp3">
+  </audio>
+  <audio id="cardHoverSound" preload="auto" src="media/ac-02.mp3">
+  </audio>
+  <audio id="cardClickSound" preload="auto" src="media/ac-03.mp3">
+  </audio>
+  <audio id="arrixAudio1" preload="auto" src="media/ac-04.mp3">
+  </audio>
+  <audio id="arrixAudio2" preload="auto" src="media/ac-05.mp3">
+  </audio>
+  <audio id="arrixAudio3" preload="auto" src="media/ac-06.mp3">
+  </audio>
+  <audio id="arrixAudio4" preload="auto" src="media/ac-12.mp3">
+  </audio>
+  <audio id="arrixAudio5" preload="auto" src="media/ac-13.mp3">
+  </audio>
+  <audio id="arrixAudio6" preload="auto" src="media/ac-14.mp3">
+  </audio>
+  <audio id="arrixAudio7" preload="auto" src="media/ac-15.mp3">
+  </audio>
+  <audio id="arrixAudio8" preload="auto" src="media/ac-18.mp3">
+  </audio>
+  <audio id="kesiazAudio1" preload="auto" src="media/ac-07.mp3">
+  </audio>
+  <audio id="kesiazAudio2" preload="auto" src="media/ac-08.mp3">
+  </audio>
+  <audio id="kesiazAudio3" preload="auto" src="media/ac-09.mp3">
+  </audio>
+  <audio id="kesiazAudio4" preload="auto" src="media/ac-10.mp3">
+  </audio>
+  <audio id="kesiazAudio5" preload="auto" src="media/ac-11.mp3">
+  </audio>
+  <audio id="kesiazAudio6" preload="auto" src="media/ac-16.mp3">
+  </audio>
+  <audio id="kesiazAudio7" preload="auto" src="media/ac-17.mp3">
+  </audio>
+  <noscript>
+   <div style="
+          width: 100%;
+          height: 100%;
+          background: #000;
+          color: #fff;
+          font-size: 2em;
+          z-index: 9999 !important;
+          position: fixed;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        ">
+    <p>
+     This site requires JavaScript.
+    </p>
+   </div>
+  </noscript>
+  <div class="pageTitle" style="opacity: 0">
+   <span>
+    <i>
+     angelcore
+    </i>
+   </span>
+   <br/>
+   <span class="fields">
+    <i>
+    </i>
+   </span>
+  </div>
+  <div class="splash-screen" id="splashScreen">
+   <div class="splash-3d" id="splash3d">
+   </div>
+  </div>
+  <div class="invertColors">
+  </div>
+  <div class="blackFade">
+  </div>
+  <img class="rainClouds" draggable="false" src="images/bg.jpg" style="opacity: 1; visibility: inherit"/>
+  <script>
+   function finishEnter() {
+        const e = document.getElementById("splashScreen"),
+          t = document.querySelector(".pageTitle"),
+          o = document.querySelector(".portfolioWorks");
+        (window.stopSplash3D && window.stopSplash3D(),
+          e && (e.style.display = "none"),
+          t &&
+            ((t.style.opacity = "1"),
+            "undefined" != typeof gsap &&
+              gsap.to(t, { opacity: 1, duration: 1.5, ease: "power2.out" })),
+          o && (o.style.visibility = "visible"));
+      }
+      function cutText() {
+        const e = document.getElementById("splashScreen");
+        (e && e.classList.add("fade-out"), setTimeout(finishEnter, 800));
+      }
+      function closeSplash() {
+        (cutText(), window.startHorrorMusic && window.startHorrorMusic());
+      }
+      (document.addEventListener("click", closeSplash, { once: !0 }),
+        document.addEventListener("touchstart", closeSplash, { once: !0 }));
+  </script>
+  <script>
+   !(function () {
+        var e = document.getElementById("splash3d");
+        function n() {
+          e &&
+            ((e.style.display = "flex"),
+            (e.style.alignItems = "center"),
+            (e.style.justifyContent = "center"),
+            (e.innerHTML = '<span class="splash-text">angelcore</span>'));
+        }
+        if (
+          e &&
+          "undefined" != typeof THREE &&
+          THREE.TTFLoader &&
+          "undefined" != typeof BILBO_TTF_B64
+        ) {
+          var t;
+          try {
+            t = new THREE.WebGLRenderer({ alpha: !0, antialias: !0 });
+          } catch (e) {
+            return void n();
+          }
+          (t.setPixelRatio(Math.min(window.devicePixelRatio, 2)),
+            e.appendChild(t.domElement));
+          var i = new THREE.Scene(),
+            a = new THREE.PerspectiveCamera(45, 1, 0.1, 3e3),
+            o = new THREE.Group();
+          i.add(o);
+          var r = new THREE.AmbientLight(16777215, 0.55);
+          i.add(r);
+          var s = new THREE.DirectionalLight(16777215, 1.3);
+          (s.position.set(200, 300, 420), i.add(s));
+          var d = new THREE.DirectionalLight(8031487, 0.9);
+          (d.position.set(-320, -220, 120), i.add(d));
+          var l = new THREE.MeshStandardMaterial({
+            color: 16777215,
+            metalness: 0.9,
+            roughness: 0.25,
+            emissive: 1842224,
+            emissiveIntensity: 0.7,
+          });
+          try {
+            for (
+              var c = atob(BILBO_TTF_B64), E = new Uint8Array(c.length), h = 0;
+              h < c.length;
+              h++
+            )
+              E[h] = c.charCodeAt(h);
+            var m = new THREE.Font(new THREE.TTFLoader().parse(E.buffer)),
+              v = new THREE.TextGeometry("angelcore", {
+                font: m,
+                size: 90,
+                height: 24,
+                curveSegments: 14,
+                bevelEnabled: !0,
+                bevelThickness: 6,
+                bevelSize: 3,
+                bevelOffset: 0,
+                bevelSegments: 6,
+              });
+            v.computeBoundingBox();
+            var p = v.boundingBox,
+              w = (p.max.x + p.min.x) / 2,
+              T = (p.max.y + p.min.y) / 2,
+              f = (p.max.z + p.min.z) / 2,
+              u = new THREE.Mesh(v, l);
+            (u.position.set(-w, -T, -f), o.add(u));
+          } catch (e) {
+            return (console.error("3D text failed", e), n(), void t.dispose());
+          }
+          (R(), window.addEventListener("resize", R));
+          var g = 0,
+            y = performance.now(),
+            H = !0;
+          (!(function e(n) {
+            if (H) {
+              g = requestAnimationFrame(e);
+              var r = (n - y) / 1e3;
+              ((o.rotation.x = 0.03 * Math.sin(0.3 * r) - 0.14),
+                (o.rotation.y = 0.1 * Math.sin(0.24 * r)),
+                (o.rotation.z = 0.035 * Math.sin(0.35 * r)),
+                (o.position.y = 8 * Math.sin(0.9 * r)),
+                t.render(i, a));
+            }
+          })(y),
+            (window.stopSplash3D = function () {
+              ((H = !1),
+                cancelAnimationFrame(g),
+                window.removeEventListener("resize", R),
+                t.dispose(),
+                t.forceContextLoss && t.forceContextLoss(),
+                t.domElement &&
+                  t.domElement.parentNode &&
+                  t.domElement.parentNode.removeChild(t.domElement));
+            }));
+        } else n();
+        function R() {
+          var n = e.clientWidth || window.innerWidth,
+            i = e.clientHeight || window.innerHeight;
+          ((a.aspect = n / i),
+            a.updateProjectionMatrix(),
+            t.setSize(n, i),
+            (a.position.z = 0.9 * Math.min(n, i)));
+        }
+      })();
+  </script>
+  <div class="portfolioWorks" style="opacity: 1; visibility: inherit">
+   <div class="vortex-container" id="vortexContainer">
+    <div class="vortex-scene">
+     <div class="vortex-group" data-group="profiles">
+      <div class="vortex-card" data-base-angle="0" data-index="0" data-profile="kesiaz" id="card-kesiaz" style="
+                z-index: 200;
+                transform: translateX(-105px) translateY(5.15374px)
+                  translateZ(0) rotateY(-3deg) rotateX(-8deg)
+                  rotateZ(0.514347deg);
+                opacity: 1;
+                pointer-events: auto;
+              ">
+       <div class="card-face" style="transform: scale(1)">
+        <img alt="kesiaz" class="card-image" draggable="false" src="images/Lelouch.png"/>
+        <div class="card-label">
+         kesiaz
+        </div>
+       </div>
+      </div>
+      <div class="vortex-card" data-base-angle="3.141592653589793" data-index="1" data-profile="arrix" id="card-arrix" style="
+                z-index: 200;
+                transform: translateX(105px) translateY(7.97996px) translateZ(0)
+                  rotateY(3deg) rotateX(-8deg) rotateZ(1.36915deg);
+                opacity: 1;
+                pointer-events: auto;
+              ">
+       <div class="card-face" style="transform: scale(1)">
+        <img alt="arrix" class="card-image" draggable="false" src="images/escitalopram.jpg"/>
+        <div class="card-label">
+         arrix
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div aria-label="Drag left or right, or use the mouse wheel to switch profiles" class="carousel-tutorial" id="carouselTutorial" role="note">
+     <img alt="" class="carousel-tutorial-icon" draggable="false" src="images/mouse.png"/>
+     <span class="carousel-tutorial-desktop">
+      drag cursor
+      <span class="carousel-tutorial-arrow">
+       ↔
+      </span>
+      or use
+            mouse wheel
+     </span>
+     <span class="carousel-tutorial-touch">
+      swipe left / right to switch
+     </span>
+    </div>
+   </div>
+  </div>
+  <div class="vulgateClementine">
+   <div class="verse">
+    <p id="text">
+    </p>
+   </div>
+  </div>
+  <div class="profile-dimmer" id="profileDimmer">
+  </div>
+  <img alt="" class="profile-banner" draggable="false" id="profileBanner" src="images/bg.jpg"/>
+  <div class="profile-view" id="profile-kesiaz">
+   <div class="profile-card">
+    <img alt="kesiaz" class="card-image" draggable="false" src="images/Lelouch.png"/>
+   </div>
+   <div class="profile-info">
+    <h2 class="profile-name">
+     kesiaz
+    </h2>
+    <p class="profile-tagline">
+     „The things you own end up owning you.“
+    </p>
+    <div class="profile-links">
+     <a href="https://www.tiktok.com/@burkhard12123" rel="noopener" target="_blank">
+      Tiktok
+     </a>
+     <a href="https://discord.com/users/1505923269088383173" rel="noopener" target="_blank">
+      Discord
+     </a>
+    </div>
+   </div>
+  </div>
+  <div class="profile-view" id="profile-arrix">
+   <div class="profile-card">
+    <img alt="arrix" class="card-image" draggable="false" src="images/escitalopram.jpg"/>
+   </div>
+   <div class="profile-info">
+    <h2 class="profile-name">
+     arrix
+    </h2>
+    <p class="profile-tagline">
+     the world isnt wrong it just is
+    </p>
+    <div class="profile-links">
+     <a href="https://github.com/mrxennt" rel="noopener" target="_blank">
+      GitHub
+     </a>
+    </div>
+   </div>
+  </div>
+  <button class="back-btn" id="backBtn">
+   ← return
+  </button>
+  <a class="archives-btn" href="https://github.com/mrxennt" id="archivesBtn" rel="noopener" target="_blank">
+   Profile
+  </a>
+  <div class="bottom-audio-player" id="bottomAudioPlayer">
+   <div class="audio-equalizer" id="audioEqualizer" title="Play / Pause">
+    <span class="eq-bar bar-1">
+    </span>
+    <span class="eq-bar bar-2">
+    </span>
+    <span class="eq-bar bar-3">
+    </span>
+    <span class="eq-bar bar-4">
+    </span>
+    <span class="eq-bar bar-5">
+    </span>
+   </div>
+   <div class="audio-meta" id="audioMeta" title="Next track">
+    <div class="audio-track-title" id="audioTrackTitle">
+     zoinbase — predayed
+    </div>
+    <div class="audio-artist-name" id="audioArtistName">
+     KESIAZ
+    </div>
+   </div>
+   <div class="audio-progress-wrap" id="audioProgressWrap" title="Seek">
+    <div class="audio-progress-bar" id="audioProgressBar">
+    </div>
+   </div>
+  </div>
+  <button class="skip-song-btn" id="skipSongBtn">
+   skip song
+  </button>
+  <div class="page-transition-overlay" id="pageTransitionOverlay">
+  </div>
+  <div class="site-sign">
+   angelcore
+  </div>
+  <div class="flicker">
+  </div>
+  <div class="saturate">
+  </div>
+  <div class="coloradjust">
+  </div>
+  <div class="contrastadjust">
+  </div>
+  <div class="matrix">
+  </div>
+  <div class="matrix2">
+  </div>
+  <div class="matrix3">
+  </div>
+  <div class="matrix4">
+  </div>
+  <div class="matrix5">
+  </div>
+  <script>
+   !(function () {
+        const t = document.getElementById("vortexContainer");
+        if (!t) return;
+        const e = t.querySelectorAll(".vortex-card"),
+          n = e.length;
+        let a = 0,
+          r = 0,
+          i = !1,
+          o = !1,
+          s = 0,
+          d = 0,
+          c = null,
+          u = 0,
+          l = 0,
+          v = !1,
+          h = 0;
+        const p = {
+          radius: 200,
+          cardSpacing: (2 * Math.PI) / n,
+          tilt: -8,
+          dragSensitivity: 0.005,
+          wheelSensitivity: 0.004,
+          maxWheelDelta: 120,
+          friction: 0.95,
+          introGap: 210,
+          introSlant: 6,
+        };
+        const y = document.getElementById("carouselTutorial"),
+          g = () => {
+            if (!y || y.classList.contains("is-dismissed")) return;
+            (y.classList.remove("is-visible"),
+              y.classList.add("is-dismissed"));
+            try {
+              sessionStorage.setItem("angelcoreCarouselTutorialUsed", "1");
+            } catch (t) {}
+          },
+          m = () => {
+            if (!y) return;
+            try {
+              if (
+                "1" ===
+                sessionStorage.getItem("angelcoreCarouselTutorialUsed")
+              )
+                return void y.classList.add("is-dismissed");
+            } catch (t) {}
+            requestAnimationFrame(() => y.classList.add("is-visible"));
+          };
+        m();
+        (window.innerWidth < 600
+          ? ((p.radius = 120), (p.introGap = 140))
+          : window.innerWidth < 900 && ((p.radius = 160), (p.introGap = 170)),
+          e.forEach((t, e) => {
+            ((t.dataset.index = e),
+              (t.dataset.baseAngle = (e * p.cardSpacing).toString()),
+              t.addEventListener("click", (e) => {
+                if (o) return void e.preventDefault();
+                (window.playCardClickSound && window.playCardClickSound(),
+                  v || ((v = !0), (u = 3e-4)));
+                const n = parseFloat(t.dataset.baseAngle) + a;
+                if (
+                  (Math.cos(n) * p.radius + p.radius) / (2 * p.radius) <=
+                  0.5
+                ) {
+                  const e = parseInt(t.dataset.index),
+                    n = ((a % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI),
+                    i = 2 * Math.PI - e * p.cardSpacing;
+                  return void (r += i - n);
+                }
+                const i = t.getAttribute("data-profile");
+                i && "function" == typeof showProfile && showProfile(i);
+              }),
+              t.addEventListener("mouseenter", () => {
+                ((c = t),
+                  (u = 0),
+                  window.playCardHoverSound && window.playCardHoverSound());
+              }),
+              t.addEventListener("mouseleave", () => {
+                ((c = null), v && (u = 3e-4));
+              }));
+          }),
+          t.addEventListener("mousedown", (e) => {
+            (v || ((v = !0), (u = 3e-4)),
+              (i = !0),
+              (o = !1),
+              (s = e.clientX),
+              (d = r),
+              (l = 0),
+              (t.style.cursor = "grabbing"),
+              (u = 0));
+          }),
+          document.addEventListener("mouseup", () => {
+            i &&
+              ((i = !1),
+              (t.style.cursor = "default"),
+              (r += 20 * l),
+              v && (u = 3e-4));
+          }),
+          document.addEventListener("mousemove", (t) => {
+            if (!i) return;
+            const e = t.clientX - s;
+            Math.abs(e) > 10 && ((o = !0), g());
+            const n = d + e * p.dragSensitivity;
+            ((l = n - r), (r = n));
+          }),
+          t.addEventListener(
+            "touchstart",
+            (t) => {
+              (v || ((v = !0), (u = 3e-4)),
+                (i = !0),
+                (o = !1),
+                (s = t.touches[0].clientX),
+                (d = r),
+                (l = 0),
+                (u = 0));
+            },
+            { passive: !0 },
+          ),
+          document.addEventListener("touchend", () => {
+            i && ((i = !1), (r += 20 * l), v && (u = 3e-4));
+          }),
+          document.addEventListener(
+            "touchmove",
+            (t) => {
+              if (!i) return;
+              const e = t.touches[0].clientX - s;
+              Math.abs(e) > 10 && ((o = !0), g());
+              const n = d + e * p.dragSensitivity;
+              ((l = n - r), (r = n));
+            },
+            { passive: !0 },
+          ),
+          t.addEventListener(
+            "wheel",
+            (event) => {
+              if (document.body.classList.contains("profile-open")) return;
+              const rawDelta =
+                Math.abs(event.deltaY) >= Math.abs(event.deltaX)
+                  ? event.deltaY
+                  : event.deltaX;
+              if (!rawDelta) return;
+              event.preventDefault();
+              g();
+              (v || ((v = !0), (u = 3e-4)), (u = 0));
+              const modeScale =
+                  1 === event.deltaMode
+                    ? 16
+                    : 2 === event.deltaMode
+                      ? window.innerHeight
+                      : 1,
+                wheelDelta = Math.max(
+                  -p.maxWheelDelta,
+                  Math.min(p.maxWheelDelta, rawDelta * modeScale),
+                ),
+                wheelImpulse = wheelDelta * p.wheelSensitivity;
+              ((r += wheelImpulse), (l = 0.04 * wheelImpulse));
+            },
+            { passive: !1 },
+          ),
+          document.addEventListener("keydown", (t) => {
+            "ArrowLeft" === t.key
+              ? (v || ((v = !0), (u = 3e-4)), t.preventDefault(), (r -= 0.5))
+              : "ArrowRight" === t.key &&
+                (v || ((v = !0), (u = 3e-4)), t.preventDefault(), (r += 0.5));
+          }));
+        let f = 0;
+        (!(function t() {
+          if (
+            document.hidden ||
+            document.body.classList.contains("profile-open")
+          )
+            return void requestAnimationFrame(t);
+          ((f += 0.02),
+            v && h < 1 && ((h += 0.02), h > 1 && (h = 1)),
+            i || c || (r += u),
+            i || ((l *= p.friction), (r += l)),
+            (a += 0.1 * (r - a)),
+            e.forEach((t, e) => {
+              const r = parseFloat(t.dataset.baseAngle) + a,
+                i = 0.8 * e,
+                o = 8 * Math.sin(f + i),
+                s = 1.5 * Math.sin(0.5 * f + i),
+                d = e - (n - 1) / 2,
+                c = d * p.introGap,
+                u = d * p.introSlant,
+                l = 0 === d ? 40 : 0,
+                v = Math.sin(r) * p.radius,
+                y = Math.cos(r) * p.radius,
+                g = -r * (180 / Math.PI),
+                m = (y + p.radius) / (2 * p.radius),
+                w = m > 0.5,
+                E = c * (1 - h) + v * h,
+                S = l * (1 - h) + y * h,
+                M = u * (1 - h) + g * h,
+                L = 1 * (1 - h) + (w ? 1 : 0.35 + 0.3 * m) * h,
+                b = 1 * (1 - h) + (w ? 1 : 0.75 + 0.15 * m) * h;
+              ((t.style.zIndex = Math.floor(S + p.radius)),
+                (t.style.transform = `translateX(${E}px) translateY(${o}px) translateZ(${S}px) rotateY(${M}deg) rotateX(${p.tilt}deg) rotateZ(${s}deg)`),
+                (t.style.opacity = L),
+                (t.style.pointerEvents = "auto"));
+              const I = t.querySelector(".card-face");
+              I && (I.style.transform = `scale(${b})`);
+            }),
+            requestAnimationFrame(t));
+        })(),
+          document.addEventListener("visibilitychange", () => {
+            v && (u = document.hidden ? 0 : 3e-4);
+          }));
+      })();
+  </script>
+  <script>
+  </script>
+  <script>
+   let currentProfile = null;
+      const landingEls = [
+          document.querySelector(".portfolioWorks"),
+          document.querySelector(".vulgateClementine"),
+          document.querySelector(".pageTitle"),
+          document.getElementById("landing-np"),
+        ],
+        backBtn = document.getElementById("backBtn"),
+        bottomAudioPlayer = document.getElementById("bottomAudioPlayer"),
+        profileDimmer = document.getElementById("profileDimmer"),
+        profileBanner = document.getElementById("profileBanner"),
+        skipSongBtn = document.getElementById("skipSongBtn"),
+        audioEqualizer = document.getElementById("audioEqualizer"),
+        audioMeta = document.getElementById("audioMeta"),
+        audioTrackTitle = document.getElementById("audioTrackTitle"),
+        audioArtistName = document.getElementById("audioArtistName"),
+        audioProgressWrap = document.getElementById("audioProgressWrap"),
+        audioProgressBar = document.getElementById("audioProgressBar"),
+        arrixAudio1 = document.getElementById("arrixAudio1"),
+        arrixAudio2 = document.getElementById("arrixAudio2"),
+        arrixAudio3 = document.getElementById("arrixAudio3"),
+        arrixAudio4 = document.getElementById("arrixAudio4"),
+        arrixAudio5 = document.getElementById("arrixAudio5"),
+        arrixAudio6 = document.getElementById("arrixAudio6"),
+        arrixAudio7 = document.getElementById("arrixAudio7"),
+        arrixAudio8 = document.getElementById("arrixAudio8"),
+        kesiazAudio1 = document.getElementById("kesiazAudio1"),
+        kesiazAudio2 = document.getElementById("kesiazAudio2"),
+        kesiazAudio3 = document.getElementById("kesiazAudio3"),
+        kesiazAudio4 = document.getElementById("kesiazAudio4"),
+        kesiazAudio5 = document.getElementById("kesiazAudio5"),
+        kesiazAudio6 = document.getElementById("kesiazAudio6"),
+        kesiazAudio7 = document.getElementById("kesiazAudio7"),
+        horrorMusic = document.getElementById("bgMusic"),
+        cardHoverSound = document.getElementById("cardHoverSound"),
+        cardClickSound = document.getElementById("cardClickSound"),
+        allAudio = [
+          arrixAudio1,
+          arrixAudio2,
+          arrixAudio3,
+          arrixAudio4,
+          arrixAudio5,
+          arrixAudio6,
+          arrixAudio7,
+          arrixAudio8,
+          kesiazAudio1,
+          kesiazAudio2,
+          kesiazAudio3,
+          kesiazAudio4,
+          kesiazAudio5,
+          kesiazAudio6,
+          kesiazAudio7,
+        ].filter(Boolean);
+      let currentProfileAudio = null,
+        currentTrackIndex = 0,
+        userInteracted = !1,
+        musicVolume = 0.5;
+      const TRACK_METADATA = {
+        "ac-07.mp3": { title: "zoinbase &mdash; predayed", artist: "KESIAZ" },
+        "ac-08.mp3": {
+          title: "safeword &mdash; whatsaheart",
+          artist: "KESIAZ",
+        },
+        "ac-09.mp3": {
+          title: "Модель (Model) (slowed) &mdash; DJ ZUP RAlii",
+          artist: "KESIAZ",
+        },
+        "ac-10.mp3": {
+          title: "мудаком &mdash; lightprey, DOFIN",
+          artist: "KESIAZ",
+        },
+        "ac-11.mp3": {
+          title: "я целую соль &mdash; emosl4t696",
+          artist: "KESIAZ",
+        },
+        "ac-16.mp3": {
+          title: "byebye",
+          artist: "KESIAZ",
+        },
+        "ac-17.mp3": {
+          title: "Easter Pink (Prod. Suzy Sheer) &mdash; fakemink",
+          artist: "KESIAZ",
+        },
+        "ac-04.mp3": {
+          title: "Searching ◛⑅·˚ ༘ ♡ &mdash; Gomi",
+          artist: "ARRIX",
+        },
+        "ac-05.mp3": {
+          title: "narcissist &mdash; imsg",
+          artist: "ARRIX",
+        },
+        "ac-06.mp3": {
+          title: "wasted &mdash; regressfromshawty",
+          artist: "ARRIX",
+        },
+        "ac-12.mp3": {
+          title: "темный принц &mdash; овердоз",
+          artist: "ARRIX",
+        },
+        "ac-13.mp3": {
+          title: "с тобой",
+          artist: "ARRIX",
+        },
+        "ac-14.mp3": {
+          title: "грустинка",
+          artist: "ARRIX",
+        },
+        "ac-15.mp3": {
+          title: "did i tell u that i miss u &mdash; adore",
+          artist: "ARRIX",
+        },
+        "ac-18.mp3": {
+          title: "что тебя гложет",
+          artist: "ARRIX",
+        },
+      };
+      function shuffleTracks(tracks, trackToAvoidFirst) {
+        const shuffled = tracks.filter(Boolean).slice();
+        for (let index = shuffled.length - 1; index > 0; index--) {
+          const randomIndex = Math.floor(Math.random() * (index + 1));
+          [shuffled[index], shuffled[randomIndex]] = [
+            shuffled[randomIndex],
+            shuffled[index],
+          ];
+        }
+        if (
+          trackToAvoidFirst &&
+          shuffled.length > 1 &&
+          shuffled[0] === trackToAvoidFirst
+        ) {
+          const swapIndex = 1 + Math.floor(Math.random() * (shuffled.length - 1));
+          [shuffled[0], shuffled[swapIndex]] = [
+            shuffled[swapIndex],
+            shuffled[0],
+          ];
+        }
+        return shuffled;
+      }
+      function trackNameOf(e) {
+        if (!e) return "";
+        const t = e.currentSrc || e.src;
+        if (!t) return "";
+        try {
+          return decodeURIComponent(t.split("/").pop().split("\\").pop());
+        } catch (e) {
+          return t.split("/").pop();
+        }
+      }
+      function getTrackDetails(e, t) {
+        const o = trackNameOf(e);
+        return TRACK_METADATA[o]
+          ? TRACK_METADATA[o]
+          : o.includes("Searching") || o.includes("Gomi")
+            ? {
+                title: "Searching ◛⑅·˚ ༘ ♡ &mdash; Gomi",
+                artist: "ARRIX",
+              }
+            : o.includes("narcissist")
+              ? { title: "narcissist &mdash; imsg", artist: "ARRIX" }
+              : o.includes("wasted")
+                ? {
+                    title: "wasted &mdash; regressfromshawty",
+                    artist: "ARRIX",
+                  }
+                : {
+                    title:
+                      o
+                        .replace(/\.[^/.]+$/, "")
+                        .replace(/\s*\(youtube\)/i, "")
+                        .replace(/\s*-\s*/g, " &mdash; ") || "track",
+                    artist: (t || "angelcore").toUpperCase(),
+                  };
+      }
+      function updateNowPlaying() {
+        const e =
+          currentProfileAudio && currentProfileAudio.length
+            ? currentProfileAudio[currentTrackIndex]
+            : null;
+        if (!e) return;
+        const t = getTrackDetails(e, currentProfile);
+        (audioTrackTitle && (audioTrackTitle.innerHTML = t.title),
+          audioArtistName && (audioArtistName.textContent = t.artist));
+      }
+      function updatePlayLabel() {
+        const e =
+          currentProfileAudio && currentProfileAudio.length
+            ? currentProfileAudio[currentTrackIndex]
+            : null;
+        audioEqualizer &&
+          (e && !e.paused
+            ? audioEqualizer.classList.add("playing")
+            : audioEqualizer.classList.remove("playing"));
+      }
+      function updateProgressBar() {
+        const e =
+          currentProfileAudio && currentProfileAudio.length
+            ? currentProfileAudio[currentTrackIndex]
+            : null;
+        if (audioProgressBar)
+          if (e && e.duration && !isNaN(e.duration) && e.duration > 0) {
+            const t = (e.currentTime / e.duration) * 100;
+            audioProgressBar.style.width = t + "%";
+          } else audioProgressBar.style.width = "0%";
+      }
+      function applyVolume() {
+        allAudio.forEach(function (e) {
+          e.volume = musicVolume;
+        });
+      }
+      function stopMusic() {
+        if (!currentProfileAudio || 0 === currentProfileAudio.length) return;
+        const e = currentProfileAudio[currentTrackIndex];
+        (e.pause(),
+          (e.currentTime = 0),
+          updatePlayLabel(),
+          updateProgressBar());
+      }
+      function togglePlay() {
+        if (!currentProfileAudio || 0 === currentProfileAudio.length) return;
+        const e = currentProfileAudio[currentTrackIndex];
+        (e.paused ? e.play().catch(function () {}) : e.pause(),
+          updatePlayLabel());
+      }
+      function safePlay(el) {
+        if (!el) return;
+        el.play().catch(function () {
+          document.addEventListener(
+            "pointerdown",
+            function () {
+              el.play().catch(function () {});
+            },
+            { once: true },
+          );
+        });
+      }
+      function playProfileAudio(e) {
+        userInteracted &&
+          (stopProfileAudio(),
+          "arrix" === e
+            ? ((currentProfileAudio = shuffleTracks([
+                arrixAudio1,
+                arrixAudio2,
+                arrixAudio3,
+                arrixAudio4,
+                arrixAudio5,
+                arrixAudio6,
+                arrixAudio7,
+                arrixAudio8,
+              ])),
+              (currentTrackIndex = 0),
+              playCurrentTrack())
+            : "kesiaz" === e &&
+              ((currentProfileAudio = shuffleTracks([
+                kesiazAudio1,
+                kesiazAudio2,
+                kesiazAudio3,
+                kesiazAudio4,
+                kesiazAudio5,
+                kesiazAudio6,
+                kesiazAudio7,
+              ])),
+              (currentTrackIndex = 0),
+              playCurrentTrack()));
+      }
+      function advanceToNextRandomTrack() {
+        if (!currentProfileAudio || currentProfileAudio.length === 0) return;
+        const previousTrack = currentProfileAudio[currentTrackIndex];
+        if (currentTrackIndex < currentProfileAudio.length - 1) {
+          currentTrackIndex++;
+        } else {
+          currentProfileAudio = shuffleTracks(currentProfileAudio, previousTrack);
+          currentTrackIndex = 0;
+        }
+        playCurrentTrack();
+      }
+      function playCurrentTrack() {
+        if (!currentProfileAudio || 0 === currentProfileAudio.length) return;
+        const e = currentProfileAudio[currentTrackIndex];
+        ((e.volume = musicVolume),
+          (e.currentTime = 0),
+          safePlay(e),
+          (e.onended = function () {
+            advanceToNextRandomTrack();
+          }),
+          updateNowPlaying(),
+          updatePlayLabel(),
+          updateProgressBar());
+      }
+      function skipToNextTrack() {
+        currentProfileAudio &&
+          0 !== currentProfileAudio.length &&
+          (currentProfileAudio[currentTrackIndex].pause(),
+          (currentProfileAudio[currentTrackIndex].currentTime = 0),
+          advanceToNextRandomTrack());
+      }
+      function stopProfileAudio() {
+        (currentProfileAudio &&
+          currentProfileAudio.forEach(function (e) {
+            (e.pause(), (e.currentTime = 0), (e.onended = null));
+          }),
+          (currentProfileAudio = null),
+          (currentTrackIndex = 0),
+          updatePlayLabel(),
+          updateProgressBar());
+      }
+      function showLanding() {
+        if (!currentProfile) return;
+        const e = document.getElementById("profile-" + currentProfile);
+        (stopProfileAudio(),
+          document.body.classList.remove("profile-open"),
+          profileBanner &&
+            gsap.to(profileBanner, {
+              autoAlpha: 0,
+              scale: 1.06,
+              xPercent: -50,
+              yPercent: -50,
+              duration: 0.55,
+              ease: "power2.inOut",
+              onComplete: function () {
+                profileBanner.classList.remove("active");
+              },
+            }),
+          profileDimmer &&
+            gsap.to(profileDimmer, {
+              autoAlpha: 0,
+              duration: 0.6,
+              ease: "power2.inOut",
+              onComplete: function () {
+                profileDimmer.classList.remove("active");
+              },
+            }),
+          skipSongBtn &&
+            gsap.to(skipSongBtn, {
+              autoAlpha: 0,
+              y: 10,
+              duration: 0.3,
+              ease: "power2.in",
+              onComplete: function () {
+                skipSongBtn.classList.remove("visible");
+              },
+            }),
+          bottomAudioPlayer &&
+            gsap.to(bottomAudioPlayer, {
+              autoAlpha: 0,
+              y: 15,
+              duration: 0.35,
+              ease: "power2.in",
+              onComplete: function () {
+                bottomAudioPlayer.classList.remove("active");
+              },
+            }),
+          gsap.to(e, {
+            autoAlpha: 0,
+            scale: 0.96,
+            duration: 0.45,
+            ease: "power2.inOut",
+            onComplete: function () {
+              e.classList.remove("active");
+            },
+          }),
+          gsap.to(backBtn, {
+            autoAlpha: 0,
+            duration: 0.3,
+            ease: "power2.out",
+            onComplete: function () {
+              backBtn.classList.remove("visible");
+            },
+          }),
+          setTimeout(function () {
+            landingEls.forEach(function (e) {
+              e &&
+                (e.classList.remove("hidden-section"),
+                gsap.to(e, {
+                  autoAlpha: 1,
+                  duration: 0.8,
+                  ease: "power2.out",
+                }));
+            });
+          }, 400),
+          (currentProfile = null),
+          window.startHorrorMusic && window.startHorrorMusic(),
+          history.pushState(null, "", window.location.pathname));
+      }
+      ((window.playCardHoverSound = function () {
+        cardHoverSound &&
+          !currentProfile &&
+          ((cardHoverSound.volume = 0.5),
+          (cardHoverSound.currentTime = 0),
+          cardHoverSound.play().catch(function () {}));
+      }),
+        (window.playCardClickSound = function () {
+          cardClickSound &&
+            !currentProfile &&
+            ((cardClickSound.volume = 0.5),
+            (cardClickSound.currentTime = 0),
+            cardClickSound.play().catch(function () {}));
+        }),
+        (window.startHorrorMusic = function () {
+          if (!horrorMusic || currentProfile) return;
+          const e = Number(sessionStorage.getItem("horrorMusicTime"));
+          (Number.isFinite(e) &&
+            e >= 0 &&
+            Math.abs(horrorMusic.currentTime - e) > 2 &&
+            (horrorMusic.currentTime = e),
+            (horrorMusic.volume = 0.4),
+            sessionStorage.setItem("horrorMusicActive", "true"),
+            safePlay(horrorMusic));
+        }),
+        (window.stopHorrorMusic = function () {
+          horrorMusic &&
+            (sessionStorage.setItem(
+              "horrorMusicTime",
+              String(horrorMusic.currentTime || 0),
+            ),
+            sessionStorage.setItem("horrorMusicActive", "false"),
+            horrorMusic.pause());
+        }),
+        (window.saveHorrorMusicState = function () {
+          horrorMusic &&
+            !horrorMusic.paused &&
+            (sessionStorage.setItem(
+              "horrorMusicTime",
+              String(horrorMusic.currentTime || 0),
+            ),
+            sessionStorage.setItem("horrorMusicActive", "true"));
+        }),
+        (window.transitionProfileToHorrorMusic = function () {
+          if (!horrorMusic) return;
+          const e = Number(sessionStorage.getItem("horrorMusicTime"));
+          (Number.isFinite(e) &&
+            e >= 0 &&
+            (horrorMusic.currentTime = horrorMusic.duration
+              ? e % horrorMusic.duration
+              : e),
+            sessionStorage.setItem("horrorMusicActive", "true"),
+            (horrorMusic.volume = 0),
+            safePlay(horrorMusic));
+          const t = allAudio.filter(function (e) {
+            return !e.paused;
+          });
+          "undefined" != typeof gsap
+            ? (t.length &&
+                gsap.to(t, { volume: 0, duration: 0.35, ease: "power2.inOut" }),
+              gsap.to(horrorMusic, {
+                volume: 0.4,
+                duration: 0.35,
+                ease: "power2.inOut",
+                onUpdate: function () {
+                  sessionStorage.setItem(
+                    "horrorMusicTime",
+                    String(horrorMusic.currentTime || 0),
+                  );
+                },
+              }))
+            : (t.forEach(function (e) {
+                e.pause();
+              }),
+              (horrorMusic.volume = 0.4));
+        }),
+        horrorMusic &&
+          ((horrorMusic.volume = 0.4),
+          horrorMusic.addEventListener("timeupdate", function () {
+            horrorMusic.paused ||
+              sessionStorage.setItem(
+                "horrorMusicTime",
+                String(horrorMusic.currentTime || 0),
+              );
+          })),
+        "true" === sessionStorage.getItem("horrorMusicActive") &&
+          window.startHorrorMusic(),
+        allAudio.forEach(function (e) {
+          (e.addEventListener("play", updatePlayLabel),
+            e.addEventListener("pause", updatePlayLabel),
+            e.addEventListener("timeupdate", updateProgressBar));
+        }),
+        applyVolume(),
+        document
+          .querySelectorAll(".profile-aliases[data-aliases]")
+          .forEach(function (e) {
+            const t = e
+              .getAttribute("data-aliases")
+              .split(",")
+              .map(function (e) {
+                return e.trim();
+              })
+              .filter(Boolean);
+            if (t.length < 2) return;
+            const o = e.querySelector(".alias-current"),
+              r = e.querySelector(".alias-tooltip");
+            r &&
+              ((r.textContent = ""),
+              t.forEach(function (e, t) {
+                if (t > 0) {
+                  const e = document.createElement("span");
+                  ((e.className = "sep"),
+                    (e.innerHTML = "&bull;"),
+                    r.appendChild(e));
+                }
+                const o = document.createElement("span");
+                ((o.className = "al"), (o.textContent = e), r.appendChild(o));
+              }));
+            let i = 1,
+              n = setTimeout(function e() {
+                (gsap.to(o, {
+                  opacity: 0,
+                  scale: 0.5,
+                  duration: 0.18,
+                  ease: "power2.in",
+                  onComplete: function () {
+                    ((o.textContent = t[i % t.length]),
+                      gsap.fromTo(
+                        o,
+                        { opacity: 0, scale: 0.3 },
+                        {
+                          opacity: 1,
+                          scale: 1,
+                          duration: 0.4,
+                          ease: "back.out(2.2)",
+                        },
+                      ));
+                  },
+                }),
+                  i++,
+                  (n = setTimeout(e, 2400)));
+              }, 2400);
+          }),
+        audioProgressWrap &&
+          audioProgressWrap.addEventListener("click", function (e) {
+            const t =
+              currentProfileAudio && currentProfileAudio.length
+                ? currentProfileAudio[currentTrackIndex]
+                : null;
+            if (!t || !t.duration) return;
+            const o = audioProgressWrap.getBoundingClientRect(),
+              r = Math.max(0, Math.min(e.clientX - o.left, o.width));
+            ((t.currentTime = (r / o.width) * t.duration), updateProgressBar());
+          }),
+        audioEqualizer && audioEqualizer.addEventListener("click", togglePlay),
+        audioMeta && audioMeta.addEventListener("click", skipToNextTrack),
+        skipSongBtn && skipSongBtn.addEventListener("click", skipToNextTrack),
+        (window.showProfile = function (e) {
+          userInteracted = !0;
+          const t = document.getElementById("profile-" + e);
+          if (t) {
+            if (
+              (window.stopHorrorMusic && window.stopHorrorMusic(),
+              cardHoverSound &&
+                (cardHoverSound.pause(), (cardHoverSound.currentTime = 0)),
+              currentProfile && currentProfile !== e)
+            ) {
+              const o = document.getElementById("profile-" + currentProfile);
+              return (
+                stopProfileAudio(),
+                o &&
+                  gsap.to(o, {
+                    autoAlpha: 0,
+                    duration: 0.35,
+                    ease: "power2.inOut",
+                    onComplete: function () {
+                      (o.classList.remove("active"),
+                        (currentProfile = e),
+                        t.classList.add("active"),
+                        gsap.fromTo(
+                          t,
+                          { autoAlpha: 0 },
+                          { autoAlpha: 1, duration: 0.5, ease: "power2.out" },
+                        ),
+                        playProfileAudio(e));
+                    },
+                  }),
+                void history.pushState(null, "", "#" + e)
+              );
+            }
+            currentProfile !== e &&
+              ((currentProfile = e),
+              document.body.classList.add("profile-open"),
+              profileDimmer &&
+                (profileDimmer.classList.add("active"),
+                gsap.fromTo(
+                  profileDimmer,
+                  { autoAlpha: 0 },
+                  { autoAlpha: 1, duration: 0.9, ease: "power2.out" },
+                )),
+              profileBanner &&
+                (profileBanner.classList.add("active"),
+                gsap.fromTo(
+                  profileBanner,
+                  { autoAlpha: 0, scale: 1.15, xPercent: -50, yPercent: -50 },
+                  {
+                    autoAlpha: 1,
+                    scale: 1,
+                    xPercent: -50,
+                    yPercent: -50,
+                    duration: 1.4,
+                    ease: "power3.out",
+                  },
+                )),
+              landingEls.forEach(function (e) {
+                e &&
+                  gsap.to(e, {
+                    autoAlpha: 0,
+                    duration: 0.6,
+                    ease: "power2.inOut",
+                    onComplete: function () {
+                      e.classList.add("hidden-section");
+                    },
+                  });
+              }),
+              setTimeout(function () {
+                (t.classList.add("active"),
+                  gsap.fromTo(
+                    t,
+                    { autoAlpha: 0, scale: 0.96, y: 15 },
+                    {
+                      autoAlpha: 1,
+                      scale: 1,
+                      y: 0,
+                      duration: 0.8,
+                      ease: "power2.out",
+                    },
+                  ),
+                  backBtn.classList.add("visible"),
+                  gsap.fromTo(
+                    backBtn,
+                    { autoAlpha: 0, x: -10 },
+                    { autoAlpha: 1, x: 0, duration: 0.5, ease: "power2.out" },
+                  ),
+                  bottomAudioPlayer &&
+                    (bottomAudioPlayer.classList.add("active"),
+                    gsap.fromTo(
+                      bottomAudioPlayer,
+                      { autoAlpha: 0, y: 25 },
+                      { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" },
+                    )),
+                  skipSongBtn &&
+                    (skipSongBtn.classList.add("visible"),
+                    gsap.fromTo(
+                      skipSongBtn,
+                      { autoAlpha: 0, y: 15 },
+                      { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" },
+                    )),
+                  playProfileAudio(e));
+              }, 500),
+              history.pushState(null, "", "#" + e));
+          }
+        }),
+        backBtn.addEventListener("click", showLanding));
+      const VALID_PROFILES = ["kesiaz", "arrix"];
+      window.addEventListener("popstate", function () {
+        const e = window.location.hash.replace("#", "");
+        -1 !== VALID_PROFILES.indexOf(e)
+          ? showProfile(e)
+          : currentProfile && showLanding();
+      });
+      let toast = null;
+      function showToast(e) {
+        (toast ||
+          ((toast = document.createElement("div")),
+          (toast.className = "copy-toast"),
+          document.body.appendChild(toast)),
+          (toast.textContent = e),
+          toast.classList.add("show"),
+          setTimeout(function () {
+            toast.classList.remove("show");
+          }, 1800));
+      }
+      (document.querySelectorAll(".copy-link").forEach(function (e) {
+        e.addEventListener("click", function (t) {
+          (t.preventDefault(), e.getAttribute("data-copy"));
+        });
+      }),
+        document.addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+        }));
+  </script>
+  <script>
+   !(function () {
+        var t = "A",
+          e = 1,
+          i = !0;
+        setTimeout(function o() {
+          if (i) {
+            if (
+              ((t += "A N G E L C O R E".charAt(e)),
+              e++,
+              (document.title = t),
+              e >= 17)
+            )
+              return ((i = !1), void setTimeout(o, 2e3));
+            setTimeout(o, 300);
+          } else
+            ((t = "A"),
+              (e = 1),
+              (i = !0),
+              (document.title = t),
+              setTimeout(o, 300));
+        }, 300);
+      })();
+  </script>
+  <script>
+   !(function () {
+        const t = document.getElementById("pageTransitionOverlay");
+        (t &&
+          "undefined" != typeof gsap &&
+          ((t.style.opacity = "0"), (t.style.pointerEvents = "none")),
+          window.addEventListener("pageshow", function (e) {
+            e.persisted &&
+              t &&
+              ((t.style.opacity = "0"), (t.style.pointerEvents = "none"));
+          }));
+        const e = document.getElementById("archivesBtn");
+        e &&
+          e.addEventListener("click", function (e) {
+            e.preventDefault();
+            const n = this.getAttribute("href") || "projects.html";
+            (window.transitionProfileToHorrorMusic
+              ? window.transitionProfileToHorrorMusic()
+              : window.saveHorrorMusicState && window.saveHorrorMusicState(),
+              t && "undefined" != typeof gsap
+                ? ((t.style.pointerEvents = "auto"),
+                  gsap.to(t, {
+                    opacity: 1,
+                    duration: 0.45,
+                    ease: "power2.inOut",
+                    onComplete: function () {
+                      window.location.href = n;
+                    },
+                  }))
+                : (window.location.href = n));
+          });
+      })();
+  </script>
+ </body>
+</html>
