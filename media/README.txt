@@ -1,20 +1,5 @@
-SOUND-DATEIEN ERSETZEN
-======================
-
-Die aktuell vorhandenen MP3s sind GENERIERTE PLATZHALTER (synthetische
-Ambient-Loops) - nicht die Originalsongs der Seite. Die Originale sind
-nicht mehr vorhanden und lassen sich nicht wiederherstellen.
-
-So hoerst du die echten Songs:
-
-1. MP3 mit exakt dem gleichen Dateinamen hier ablegen (ueberschreiben).
-2. Seite neu laden - keine Code-Aenderung noetig.
-
-Wichtig: Dateinamen und Endung muessen exakt stimmen. Es gibt keine
-Laengenbegrenzung; der Player liest die Dauer selbst aus.
-
-BELEGUNG
---------
+SOUND-DATEIEN
+=============
 
 Hintergrund / UI
   ac-01.mp3   "Sad Piano" - Alexander Blu (Album "Magical Blue", 2017)
@@ -24,25 +9,52 @@ Hintergrund / UI
   ac-02.mp3   Karten-Hover-Sound (sehr kurz, ~0,15 s)
   ac-03.mp3   Karten-Klick-Sound (kurz, ~0,3 s)
 
-Profil KESIAZ
-  ac-07.mp3   zoinbase - predayed
-  ac-08.mp3   safeword - whatsaheart
-  ac-09.mp3   Model (slowed) - DJ ZUP RAlii  (russischer Titel)
-  ac-10.mp3   mudakom - lightprey, DOFIN     (russischer Titel)
-  ac-11.mp3   ya tseluyu sol - emosl4t696    (russischer Titel)
-  ac-16.mp3   byebye
-  ac-17.mp3   Easter Pink (Prod. Suzy Sheer) - fakemink
+PROFIL-PLAYLISTS
+  Jedes Profil hat 3 Tracks (je ~1:40, 112 kbps).
+  Alle Tracks: Kevin MacLeod (incompetech.com), Lizenz CC BY 4.0
+  https://creativecommons.org/licenses/by/4.0/
 
-Profil ARRIX
-  ac-04.mp3   Searching - Gomi
-  ac-05.mp3   narcissist - imsg
-  ac-06.mp3   wasted - regressfromshawty
-  ac-12.mp3   temnyy prints - overdоз         (russischer Titel)
-  ac-13.mp3   s toboy                         (russischer Titel)
-  ac-14.mp3   grustinka                       (russischer Titel)
-  ac-15.mp3   did i tell u that i miss u - adore
-  ac-18.mp3   chto tebya glozhet              (russischer Titel)
+  kesiaz
+    kesiaz-1.mp3   Private Reflection
+    kesiaz-2.mp3   Lasting Hope
+    kesiaz-3.mp3   Dreamlike
 
-Die angezeigten Titel/Kuenstlernamen stehen im HTML in TRACK_METADATA
-(index.html) und haengen am Dateinamen - wenn du einen Song austauschst,
-stimmt die Anzeige automatisch, solange der Dateiname bleibt.
+  arrix
+    arrix-1.mp3    Club Diver
+    arrix-2.mp3    Darkening Developments
+    arrix-3.mp3    In a Heartbeat
+
+  jack
+    jack-1.mp3     Unlight
+    jack-2.mp3     Industrial Revolution
+    jack-3.mp3     Ujangong Mix
+
+  nici
+    nici-1.mp3     Ghost Processional
+    nici-2.mp3     Sunset at Glengorm
+    nici-3.mp3     Satiate
+
+  julian
+    julian-1.mp3   Deep Noise
+    julian-2.mp3   The House of Leaves
+    julian-3.mp3   One of Them
+
+  mattis
+    mattis-1.mp3   Final Count
+    mattis-2.mp3   Big Mojo
+    mattis-3.mp3   Welcome to HorrorLand
+
+  Die Dateien sind 100-Sekunden-Ausschnitte (2 s Fade in, 4 s Fade out,
+  Loudness auf -16 LUFS normalisiert). Die Originale gibt es komplett
+  unter incompetech.com.
+
+AUSTAUSCHEN
+  MP3 mit exakt dem gleichen Dateinamen hier ablegen (ueberschreiben),
+  Seite neu laden - keine Code-Aenderung noetig. Die angezeigten Titel
+  und Kuenstlernamen stehen in TRACK_METADATA (index.html) und haengen
+  am Dateinamen: wenn ein Song ersetzt wird, den Eintrag dort anpassen.
+
+ALT / UNBENUTZT
+  ac-04.mp3 ... ac-18.mp3 waren synthetische Platzhalter (je 36 s,
+  identischer Loop) und werden nicht mehr verwendet. Koennen geloescht
+  werden.

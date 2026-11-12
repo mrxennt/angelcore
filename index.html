@@ -1074,6 +1074,10 @@
         pointer-events: auto;
         transition: color 0.3s ease;
       }
+      .music-credit a {
+        color: inherit;
+        text-decoration: none;
+      }
       .music-credit:hover {
         color: rgba(255, 255, 255, 0.7);
       }
@@ -1151,35 +1155,41 @@
   </audio>
   <audio id="cardClickSound" preload="auto" src="media/ac-03.mp3">
   </audio>
-  <audio id="arrixAudio1" preload="auto" src="media/ac-04.mp3">
+  <audio id="kesiazAudio1" preload="none" src="media/kesiaz-1.mp3">
   </audio>
-  <audio id="arrixAudio2" preload="auto" src="media/ac-05.mp3">
+  <audio id="kesiazAudio2" preload="none" src="media/kesiaz-2.mp3">
   </audio>
-  <audio id="arrixAudio3" preload="auto" src="media/ac-06.mp3">
+  <audio id="kesiazAudio3" preload="none" src="media/kesiaz-3.mp3">
   </audio>
-  <audio id="arrixAudio4" preload="auto" src="media/ac-12.mp3">
+  <audio id="arrixAudio1" preload="none" src="media/arrix-1.mp3">
   </audio>
-  <audio id="arrixAudio5" preload="auto" src="media/ac-13.mp3">
+  <audio id="arrixAudio2" preload="none" src="media/arrix-2.mp3">
   </audio>
-  <audio id="arrixAudio6" preload="auto" src="media/ac-14.mp3">
+  <audio id="arrixAudio3" preload="none" src="media/arrix-3.mp3">
   </audio>
-  <audio id="arrixAudio7" preload="auto" src="media/ac-15.mp3">
+  <audio id="jackAudio1" preload="none" src="media/jack-1.mp3">
   </audio>
-  <audio id="arrixAudio8" preload="auto" src="media/ac-18.mp3">
+  <audio id="jackAudio2" preload="none" src="media/jack-2.mp3">
   </audio>
-  <audio id="kesiazAudio1" preload="auto" src="media/ac-07.mp3">
+  <audio id="jackAudio3" preload="none" src="media/jack-3.mp3">
   </audio>
-  <audio id="kesiazAudio2" preload="auto" src="media/ac-08.mp3">
+  <audio id="niciAudio1" preload="none" src="media/nici-1.mp3">
   </audio>
-  <audio id="kesiazAudio3" preload="auto" src="media/ac-09.mp3">
+  <audio id="niciAudio2" preload="none" src="media/nici-2.mp3">
   </audio>
-  <audio id="kesiazAudio4" preload="auto" src="media/ac-10.mp3">
+  <audio id="niciAudio3" preload="none" src="media/nici-3.mp3">
   </audio>
-  <audio id="kesiazAudio5" preload="auto" src="media/ac-11.mp3">
+  <audio id="julianAudio1" preload="none" src="media/julian-1.mp3">
   </audio>
-  <audio id="kesiazAudio6" preload="auto" src="media/ac-16.mp3">
+  <audio id="julianAudio2" preload="none" src="media/julian-2.mp3">
   </audio>
-  <audio id="kesiazAudio7" preload="auto" src="media/ac-17.mp3">
+  <audio id="julianAudio3" preload="none" src="media/julian-3.mp3">
+  </audio>
+  <audio id="mattisAudio1" preload="none" src="media/mattis-1.mp3">
+  </audio>
+  <audio id="mattisAudio2" preload="none" src="media/mattis-2.mp3">
+  </audio>
+  <audio id="mattisAudio3" preload="none" src="media/mattis-3.mp3">
   </audio>
   <noscript>
    <div style="
@@ -1569,9 +1579,17 @@
   </button>
   <div class="page-transition-overlay" id="pageTransitionOverlay">
   </div>
-  <a class="music-credit" href="https://www.jamendo.com/track/1476512" rel="noopener" target="_blank">
-   ♫ Sad Piano — Alexander Blu (CC BY 3.0)
-  </a>
+  <div class="music-credit">
+   <a href="https://www.jamendo.com/track/1476512" rel="noopener" target="_blank">
+    ♫ Sad Piano — Alexander Blu (CC BY 3.0)
+   </a>
+   <span>
+    ·
+   </span>
+   <a href="https://incompetech.com/music/royalty-free/" rel="noopener" target="_blank">
+    profile tracks — Kevin MacLeod (CC BY 4.0)
+   </a>
+  </div>
   <div class="site-sign">
    Ochsen
   </div>
@@ -1824,102 +1842,123 @@
         audioArtistName = document.getElementById("audioArtistName"),
         audioProgressWrap = document.getElementById("audioProgressWrap"),
         audioProgressBar = document.getElementById("audioProgressBar"),
-        arrixAudio1 = document.getElementById("arrixAudio1"),
-        arrixAudio2 = document.getElementById("arrixAudio2"),
-        arrixAudio3 = document.getElementById("arrixAudio3"),
-        arrixAudio4 = document.getElementById("arrixAudio4"),
-        arrixAudio5 = document.getElementById("arrixAudio5"),
-        arrixAudio6 = document.getElementById("arrixAudio6"),
-        arrixAudio7 = document.getElementById("arrixAudio7"),
-        arrixAudio8 = document.getElementById("arrixAudio8"),
         kesiazAudio1 = document.getElementById("kesiazAudio1"),
         kesiazAudio2 = document.getElementById("kesiazAudio2"),
         kesiazAudio3 = document.getElementById("kesiazAudio3"),
-        kesiazAudio4 = document.getElementById("kesiazAudio4"),
-        kesiazAudio5 = document.getElementById("kesiazAudio5"),
-        kesiazAudio6 = document.getElementById("kesiazAudio6"),
-        kesiazAudio7 = document.getElementById("kesiazAudio7"),
+        arrixAudio1 = document.getElementById("arrixAudio1"),
+        arrixAudio2 = document.getElementById("arrixAudio2"),
+        arrixAudio3 = document.getElementById("arrixAudio3"),
+        jackAudio1 = document.getElementById("jackAudio1"),
+        jackAudio2 = document.getElementById("jackAudio2"),
+        jackAudio3 = document.getElementById("jackAudio3"),
+        niciAudio1 = document.getElementById("niciAudio1"),
+        niciAudio2 = document.getElementById("niciAudio2"),
+        niciAudio3 = document.getElementById("niciAudio3"),
+        julianAudio1 = document.getElementById("julianAudio1"),
+        julianAudio2 = document.getElementById("julianAudio2"),
+        julianAudio3 = document.getElementById("julianAudio3"),
+        mattisAudio1 = document.getElementById("mattisAudio1"),
+        mattisAudio2 = document.getElementById("mattisAudio2"),
+        mattisAudio3 = document.getElementById("mattisAudio3"),
         horrorMusic = document.getElementById("bgMusic"),
         cardHoverSound = document.getElementById("cardHoverSound"),
         cardClickSound = document.getElementById("cardClickSound"),
         allAudio = [
-          arrixAudio1,
-          arrixAudio2,
-          arrixAudio3,
-          arrixAudio4,
-          arrixAudio5,
-          arrixAudio6,
-          arrixAudio7,
-          arrixAudio8,
           kesiazAudio1,
           kesiazAudio2,
           kesiazAudio3,
-          kesiazAudio4,
-          kesiazAudio5,
-          kesiazAudio6,
-          kesiazAudio7,
+          arrixAudio1,
+          arrixAudio2,
+          arrixAudio3,
+          jackAudio1,
+          jackAudio2,
+          jackAudio3,
+          niciAudio1,
+          niciAudio2,
+          niciAudio3,
+          julianAudio1,
+          julianAudio2,
+          julianAudio3,
+          mattisAudio1,
+          mattisAudio2,
+          mattisAudio3,
         ].filter(Boolean);
       let currentProfileAudio = null,
         currentTrackIndex = 0,
         userInteracted = !1,
         musicVolume = 0.5;
       const TRACK_METADATA = {
-        "ac-07.mp3": { title: "zoinbase &mdash; predayed", artist: "KESIAZ" },
-        "ac-08.mp3": {
-          title: "safeword &mdash; whatsaheart",
+        "kesiaz-1.mp3": {
+          title: "Private Reflection &mdash; Kevin MacLeod",
           artist: "KESIAZ",
         },
-        "ac-09.mp3": {
-          title: "Модель (Model) (slowed) &mdash; DJ ZUP RAlii",
+        "kesiaz-2.mp3": {
+          title: "Lasting Hope &mdash; Kevin MacLeod",
           artist: "KESIAZ",
         },
-        "ac-10.mp3": {
-          title: "мудаком &mdash; lightprey, DOFIN",
+        "kesiaz-3.mp3": {
+          title: "Dreamlike &mdash; Kevin MacLeod",
           artist: "KESIAZ",
         },
-        "ac-11.mp3": {
-          title: "я целую соль &mdash; emosl4t696",
-          artist: "KESIAZ",
-        },
-        "ac-16.mp3": {
-          title: "byebye",
-          artist: "KESIAZ",
-        },
-        "ac-17.mp3": {
-          title: "Easter Pink (Prod. Suzy Sheer) &mdash; fakemink",
-          artist: "KESIAZ",
-        },
-        "ac-04.mp3": {
-          title: "Searching ◛⑅·˚ ༘ ♡ &mdash; Gomi",
+        "arrix-1.mp3": {
+          title: "Club Diver &mdash; Kevin MacLeod",
           artist: "ARRIX",
         },
-        "ac-05.mp3": {
-          title: "narcissist &mdash; imsg",
+        "arrix-2.mp3": {
+          title: "Darkening Developments &mdash; Kevin MacLeod",
           artist: "ARRIX",
         },
-        "ac-06.mp3": {
-          title: "wasted &mdash; regressfromshawty",
+        "arrix-3.mp3": {
+          title: "In a Heartbeat &mdash; Kevin MacLeod",
           artist: "ARRIX",
         },
-        "ac-12.mp3": {
-          title: "темный принц &mdash; овердоз",
-          artist: "ARRIX",
+        "jack-1.mp3": {
+          title: "Unlight &mdash; Kevin MacLeod",
+          artist: "JACK",
         },
-        "ac-13.mp3": {
-          title: "с тобой",
-          artist: "ARRIX",
+        "jack-2.mp3": {
+          title: "Industrial Revolution &mdash; Kevin MacLeod",
+          artist: "JACK",
         },
-        "ac-14.mp3": {
-          title: "грустинка",
-          artist: "ARRIX",
+        "jack-3.mp3": {
+          title: "Ujangong Mix &mdash; Kevin MacLeod",
+          artist: "JACK",
         },
-        "ac-15.mp3": {
-          title: "did i tell u that i miss u &mdash; adore",
-          artist: "ARRIX",
+        "nici-1.mp3": {
+          title: "Ghost Processional &mdash; Kevin MacLeod",
+          artist: "NICI",
         },
-        "ac-18.mp3": {
-          title: "что тебя гложет",
-          artist: "ARRIX",
+        "nici-2.mp3": {
+          title: "Sunset at Glengorm &mdash; Kevin MacLeod",
+          artist: "NICI",
+        },
+        "nici-3.mp3": {
+          title: "Satiate &mdash; Kevin MacLeod",
+          artist: "NICI",
+        },
+        "julian-1.mp3": {
+          title: "Deep Noise &mdash; Kevin MacLeod",
+          artist: "JULIAN",
+        },
+        "julian-2.mp3": {
+          title: "The House of Leaves &mdash; Kevin MacLeod",
+          artist: "JULIAN",
+        },
+        "julian-3.mp3": {
+          title: "One of Them &mdash; Kevin MacLeod",
+          artist: "JULIAN",
+        },
+        "mattis-1.mp3": {
+          title: "Final Count &mdash; Kevin MacLeod",
+          artist: "MATTIS",
+        },
+        "mattis-2.mp3": {
+          title: "Big Mojo &mdash; Kevin MacLeod",
+          artist: "MATTIS",
+        },
+        "mattis-3.mp3": {
+          title: "Welcome to HorrorLand &mdash; Kevin MacLeod",
+          artist: "MATTIS",
         },
       };
       function shuffleTracks(tracks, trackToAvoidFirst) {
@@ -2042,25 +2081,12 @@
         });
       }
       const PROFILE_TRACKS = {
-        arrix: [
-          arrixAudio1,
-          arrixAudio2,
-          arrixAudio3,
-          arrixAudio4,
-          arrixAudio5,
-          arrixAudio6,
-          arrixAudio7,
-          arrixAudio8,
-        ],
-        kesiaz: [
-          kesiazAudio1,
-          kesiazAudio2,
-          kesiazAudio3,
-          kesiazAudio4,
-          kesiazAudio5,
-          kesiazAudio6,
-          kesiazAudio7,
-        ],
+        kesiaz: [kesiazAudio1, kesiazAudio2, kesiazAudio3],
+        arrix: [arrixAudio1, arrixAudio2, arrixAudio3],
+        jack: [jackAudio1, jackAudio2, jackAudio3],
+        nici: [niciAudio1, niciAudio2, niciAudio3],
+        julian: [julianAudio1, julianAudio2, julianAudio3],
+        mattis: [mattisAudio1, mattisAudio2, mattisAudio3],
       };
       function profileTracks(e) {
         return (PROFILE_TRACKS[e] || []).filter(Boolean);
