@@ -17,7 +17,10 @@ BELEGUNG
 --------
 
 Hintergrund / UI
-  ac-01.mp3   Hintergrundmusik auf der Startseite (loop, Volume 0.4)
+  ac-01.mp3   "Sad Piano" - Alexander Blu (Album "Magical Blue", 2017)
+              Lizenz CC BY 3.0, Quelle https://www.jamendo.com/track/1476512
+              laeuft als Hintergrundmusik (loop, Volume 0.4)
+              Credit steht klein unten links auf der Seite (.music-credit)
   ac-02.mp3   Karten-Hover-Sound (sehr kurz, ~0,15 s)
   ac-03.mp3   Karten-Klick-Sound (kurz, ~0,3 s)
 

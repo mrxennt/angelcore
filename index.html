@@ -5,16 +5,16 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"/>
   <meta content="en-us" http-equiv="content-language"/>
-  <meta content="angelcore" name="title"/>
+  <meta content="Ochsen" name="title"/>
   <meta content="website" property="og:type"/>
-  <meta content="welcome to angelcore" name="description"/>
-  <meta content="© 2026 angelcore. All rights reserved." name="copyright"/>
-  <meta content="angelcore" property="og:title"/>
+  <meta content="welcome to Ochsen" name="description"/>
+  <meta content="© 2026 Ochsen. All rights reserved." name="copyright"/>
+  <meta content="Ochsen" property="og:title"/>
   <meta content="images/bg.jpg" property="og:image"/>
   <meta content="summary_large_image" name="twitter:card"/>
   <meta content="images/bg.jpg" name="twitter:image"/>
   <title>
-   A N G E L C O R E
+   O C H S E N
   </title>
   <meta content="#000000" name="theme-color"/>
   <link href="data:," rel="icon"/>
@@ -1060,6 +1060,23 @@
         pointer-events: none;
         user-select: none;
       }
+      .music-credit {
+        position: fixed;
+        bottom: 4px;
+        left: 22px;
+        z-index: 600;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 7.5pt;
+        font-style: italic;
+        letter-spacing: 0.4px;
+        color: rgba(255, 255, 255, 0.28);
+        text-decoration: none;
+        pointer-events: auto;
+        transition: color 0.3s ease;
+      }
+      .music-credit:hover {
+        color: rgba(255, 255, 255, 0.7);
+      }
       .hidden-section {
         opacity: 0 !important;
         visibility: hidden !important;
@@ -1185,7 +1202,7 @@
   <div class="pageTitle" style="opacity: 0">
    <span>
     <i>
-     angelcore
+     Ochsen
     </i>
    </span>
    <br/>
@@ -1234,7 +1251,7 @@
             ((e.style.display = "flex"),
             (e.style.alignItems = "center"),
             (e.style.justifyContent = "center"),
-            (e.innerHTML = '<span class="splash-text">angelcore</span>'));
+            (e.innerHTML = '<span class="splash-text">Ochsen</span>'));
         }
         if (
           e &&
@@ -1275,7 +1292,7 @@
             )
               E[h] = c.charCodeAt(h);
             var m = new THREE.Font(new THREE.TTFLoader().parse(E.buffer)),
-              v = new THREE.TextGeometry("angelcore", {
+              v = new THREE.TextGeometry("Ochsen", {
                 font: m,
                 size: 90,
                 height: 24,
@@ -1345,7 +1362,7 @@
                 pointer-events: auto;
               ">
        <div class="card-face" style="transform: scale(1)">
-        <img alt="kesiaz" class="card-image" draggable="false" src="images/Lelouch.png"/>
+        <img alt="kesiaz" class="card-image" draggable="false" src="images/kesiaz.jpg"/>
         <div class="card-label">
          kesiaz
         </div>
@@ -1359,9 +1376,41 @@
                 pointer-events: auto;
               ">
        <div class="card-face" style="transform: scale(1)">
-        <img alt="arrix" class="card-image" draggable="false" src="images/escitalopram.jpg"/>
+        <img alt="arrix" class="card-image" draggable="false" src="images/arrix.jpg"/>
         <div class="card-label">
          arrix
+        </div>
+       </div>
+      </div>
+      <div class="vortex-card" data-index="2" data-profile="jack" id="card-jack">
+       <div class="card-face" style="transform: scale(1)">
+        <img alt="jack" class="card-image" draggable="false" src="images/jack.jpg"/>
+        <div class="card-label">
+         jack
+        </div>
+       </div>
+      </div>
+      <div class="vortex-card" data-index="3" data-profile="nici" id="card-nici">
+       <div class="card-face" style="transform: scale(1)">
+        <img alt="nici" class="card-image" draggable="false" src="images/nici.jpg"/>
+        <div class="card-label">
+         nici
+        </div>
+       </div>
+      </div>
+      <div class="vortex-card" data-index="4" data-profile="julian" id="card-julian">
+       <div class="card-face" style="transform: scale(1)">
+        <img alt="julian" class="card-image" draggable="false" src="images/julian.jpg"/>
+        <div class="card-label">
+         julian
+        </div>
+       </div>
+      </div>
+      <div class="vortex-card" data-index="5" data-profile="mattis" id="card-mattis">
+       <div class="card-face" style="transform: scale(1)">
+        <img alt="mattis" class="card-image" draggable="false" src="images/mattis.jpg"/>
+        <div class="card-label">
+         mattis
         </div>
        </div>
       </div>
@@ -1394,7 +1443,7 @@
   <img alt="" class="profile-banner" draggable="false" id="profileBanner" src="images/bg.jpg"/>
   <div class="profile-view" id="profile-kesiaz">
    <div class="profile-card">
-    <img alt="kesiaz" class="card-image" draggable="false" src="images/Lelouch.png"/>
+    <img alt="kesiaz" class="card-image" draggable="false" src="images/kesiaz.jpg"/>
    </div>
    <div class="profile-info">
     <h2 class="profile-name">
@@ -1415,7 +1464,7 @@
   </div>
   <div class="profile-view" id="profile-arrix">
    <div class="profile-card">
-    <img alt="arrix" class="card-image" draggable="false" src="images/escitalopram.jpg"/>
+    <img alt="arrix" class="card-image" draggable="false" src="images/arrix.jpg"/>
    </div>
    <div class="profile-info">
     <h2 class="profile-name">
@@ -1425,10 +1474,62 @@
      the world isnt wrong it just is
     </p>
     <div class="profile-links">
-     <a href="https://github.com/mrxennt" rel="noopener" target="_blank">
-      GitHub
+     <a href="https://discord.gg/users/1429964849588211795" rel="noopener" target="_blank">
+      Discord
      </a>
     </div>
+   </div>
+  </div>
+  <div class="profile-view" id="profile-jack">
+   <div class="profile-card">
+    <img alt="jack" class="card-image" draggable="false" src="images/jack.jpg"/>
+   </div>
+   <div class="profile-info">
+    <h2 class="profile-name">
+     jack
+    </h2>
+    <p class="profile-tagline">
+     still here, still quiet
+    </p>
+   </div>
+  </div>
+  <div class="profile-view" id="profile-nici">
+   <div class="profile-card">
+    <img alt="nici" class="card-image" draggable="false" src="images/nici.jpg"/>
+   </div>
+   <div class="profile-info">
+    <h2 class="profile-name">
+     nici
+    </h2>
+    <p class="profile-tagline">
+     soft heart, sharp edges
+    </p>
+   </div>
+  </div>
+  <div class="profile-view" id="profile-julian">
+   <div class="profile-card">
+    <img alt="julian" class="card-image" draggable="false" src="images/julian.jpg"/>
+   </div>
+   <div class="profile-info">
+    <h2 class="profile-name">
+     julian
+    </h2>
+    <p class="profile-tagline">
+     nothing lasts, thats the point
+    </p>
+   </div>
+  </div>
+  <div class="profile-view" id="profile-mattis">
+   <div class="profile-card">
+    <img alt="mattis" class="card-image" draggable="false" src="images/mattis.jpg"/>
+   </div>
+   <div class="profile-info">
+    <h2 class="profile-name">
+     mattis
+    </h2>
+    <p class="profile-tagline">
+     somewhere between awake and gone
+    </p>
    </div>
   </div>
   <button class="back-btn" id="backBtn">
@@ -1468,8 +1569,11 @@
   </button>
   <div class="page-transition-overlay" id="pageTransitionOverlay">
   </div>
+  <a class="music-credit" href="https://www.jamendo.com/track/1476512" rel="noopener" target="_blank">
+   ♫ Sad Piano — Alexander Blu (CC BY 3.0)
+  </a>
   <div class="site-sign">
-   angelcore
+   Ochsen
   </div>
   <div class="flicker">
   </div>
@@ -1523,7 +1627,7 @@
             (y.classList.remove("is-visible"),
               y.classList.add("is-dismissed"));
             try {
-              sessionStorage.setItem("angelcoreCarouselTutorialUsed", "1");
+              sessionStorage.setItem("ochsenCarouselTutorialUsed", "1");
             } catch (t) {}
           },
           m = () => {
@@ -1531,7 +1635,7 @@
             try {
               if (
                 "1" ===
-                sessionStorage.getItem("angelcoreCarouselTutorialUsed")
+                sessionStorage.getItem("ochsenCarouselTutorialUsed")
               )
                 return void y.classList.add("is-dismissed");
             } catch (t) {}
@@ -1872,7 +1976,7 @@
                         .replace(/\.[^/.]+$/, "")
                         .replace(/\s*\(youtube\)/i, "")
                         .replace(/\s*-\s*/g, " &mdash; ") || "track",
-                    artist: (t || "angelcore").toUpperCase(),
+                    artist: (t || "Ochsen").toUpperCase(),
                   };
       }
       function updateNowPlaying() {
@@ -1937,34 +2041,78 @@
           );
         });
       }
+      const PROFILE_TRACKS = {
+        arrix: [
+          arrixAudio1,
+          arrixAudio2,
+          arrixAudio3,
+          arrixAudio4,
+          arrixAudio5,
+          arrixAudio6,
+          arrixAudio7,
+          arrixAudio8,
+        ],
+        kesiaz: [
+          kesiazAudio1,
+          kesiazAudio2,
+          kesiazAudio3,
+          kesiazAudio4,
+          kesiazAudio5,
+          kesiazAudio6,
+          kesiazAudio7,
+        ],
+      };
+      function profileTracks(e) {
+        return (PROFILE_TRACKS[e] || []).filter(Boolean);
+      }
+      function syncAudioUI(e) {
+        if (!bottomAudioPlayer) return;
+        const hasTracks = profileTracks(e).length > 0;
+        if (hasTracks) {
+          (bottomAudioPlayer.classList.add("active"),
+            gsap.fromTo(
+              bottomAudioPlayer,
+              { autoAlpha: 0, y: 25 },
+              { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" },
+            ));
+          skipSongBtn &&
+            (skipSongBtn.classList.add("visible"),
+            gsap.fromTo(
+              skipSongBtn,
+              { autoAlpha: 0, y: 15 },
+              { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" },
+            ));
+        } else {
+          (bottomAudioPlayer.classList.remove("active"),
+            gsap.to(bottomAudioPlayer, {
+              autoAlpha: 0,
+              y: 15,
+              duration: 0.3,
+              ease: "power2.in",
+            }));
+          skipSongBtn &&
+            (skipSongBtn.classList.remove("visible"),
+            gsap.to(skipSongBtn, {
+              autoAlpha: 0,
+              y: 10,
+              duration: 0.3,
+              ease: "power2.in",
+            }));
+        }
+      }
       function playProfileAudio(e) {
-        userInteracted &&
-          (stopProfileAudio(),
-          "arrix" === e
-            ? ((currentProfileAudio = shuffleTracks([
-                arrixAudio1,
-                arrixAudio2,
-                arrixAudio3,
-                arrixAudio4,
-                arrixAudio5,
-                arrixAudio6,
-                arrixAudio7,
-                arrixAudio8,
-              ])),
-              (currentTrackIndex = 0),
-              playCurrentTrack())
-            : "kesiaz" === e &&
-              ((currentProfileAudio = shuffleTracks([
-                kesiazAudio1,
-                kesiazAudio2,
-                kesiazAudio3,
-                kesiazAudio4,
-                kesiazAudio5,
-                kesiazAudio6,
-                kesiazAudio7,
-              ])),
-              (currentTrackIndex = 0),
-              playCurrentTrack()));
+        if (!userInteracted) return;
+        stopProfileAudio();
+        const tracks = profileTracks(e);
+        if (!tracks.length) {
+          horrorMusic &&
+            horrorMusic.paused &&
+            ((horrorMusic.volume = 0.4), safePlay(horrorMusic));
+          return;
+        }
+        (currentProfileAudio = shuffleTracks(tracks)),
+          (currentTrackIndex = 0),
+          playCurrentTrack();
       }
       function advanceToNextRandomTrack() {
         if (!currentProfileAudio || currentProfileAudio.length === 0) return;
@@ -2247,7 +2395,9 @@
           const t = document.getElementById("profile-" + e);
           if (t) {
             if (
-              (window.stopHorrorMusic && window.stopHorrorMusic(),
+              (profileTracks(e).length &&
+                window.stopHorrorMusic &&
+                window.stopHorrorMusic(),
               cardHoverSound &&
                 (cardHoverSound.pause(), (cardHoverSound.currentTime = 0)),
               currentProfile && currentProfile !== e)
@@ -2269,7 +2419,8 @@
                           { autoAlpha: 0 },
                           { autoAlpha: 1, duration: 0.5, ease: "power2.out" },
                         ),
-                        playProfileAudio(e));
+                        playProfileAudio(e),
+                        syncAudioUI(e));
                     },
                   }),
                 void history.pushState(null, "", "#" + e)
@@ -2329,27 +2480,21 @@
                     { autoAlpha: 0, x: -10 },
                     { autoAlpha: 1, x: 0, duration: 0.5, ease: "power2.out" },
                   ),
-                  bottomAudioPlayer &&
-                    (bottomAudioPlayer.classList.add("active"),
-                    gsap.fromTo(
-                      bottomAudioPlayer,
-                      { autoAlpha: 0, y: 25 },
-                      { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" },
-                    )),
-                  skipSongBtn &&
-                    (skipSongBtn.classList.add("visible"),
-                    gsap.fromTo(
-                      skipSongBtn,
-                      { autoAlpha: 0, y: 15 },
-                      { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" },
-                    )),
+                  syncAudioUI(e),
                   playProfileAudio(e));
               }, 500),
               history.pushState(null, "", "#" + e));
           }
         }),
         backBtn.addEventListener("click", showLanding));
-      const VALID_PROFILES = ["kesiaz", "arrix"];
+      const VALID_PROFILES = [
+        "kesiaz",
+        "arrix",
+        "jack",
+        "nici",
+        "julian",
+        "mattis",
+      ];
       window.addEventListener("popstate", function () {
         const e = window.location.hash.replace("#", "");
         -1 !== VALID_PROFILES.indexOf(e)
@@ -2385,10 +2530,10 @@
         setTimeout(function o() {
           if (i) {
             if (
-              ((t += "A N G E L C O R E".charAt(e)),
+              ((t += "O C H S E N".charAt(e)),
               e++,
               (document.title = t),
-              e >= 17)
+              e >= 11)
             )
               return ((i = !1), void setTimeout(o, 2e3));
             setTimeout(o, 300);
