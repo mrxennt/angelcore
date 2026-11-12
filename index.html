@@ -1155,17 +1155,17 @@
   </audio>
   <audio id="cardClickSound" preload="auto" src="media/ac-03.mp3">
   </audio>
-  <audio id="kesiazAudio1" preload="none" src="media/kesiaz-1.mp3">
+  <audio id="oskarAudio1" preload="none" src="media/oskar-1.mp3">
   </audio>
-  <audio id="kesiazAudio2" preload="none" src="media/kesiaz-2.mp3">
+  <audio id="oskarAudio2" preload="none" src="media/oskar-2.mp3">
   </audio>
-  <audio id="kesiazAudio3" preload="none" src="media/kesiaz-3.mp3">
+  <audio id="oskarAudio3" preload="none" src="media/oskar-3.mp3">
   </audio>
-  <audio id="arrixAudio1" preload="none" src="media/arrix-1.mp3">
+  <audio id="leonAudio1" preload="none" src="media/leon-1.mp3">
   </audio>
-  <audio id="arrixAudio2" preload="none" src="media/arrix-2.mp3">
+  <audio id="leonAudio2" preload="none" src="media/leon-2.mp3">
   </audio>
-  <audio id="arrixAudio3" preload="none" src="media/arrix-3.mp3">
+  <audio id="leonAudio3" preload="none" src="media/leon-3.mp3">
   </audio>
   <audio id="jackAudio1" preload="none" src="media/jack-1.mp3">
   </audio>
@@ -1363,7 +1363,7 @@
    <div class="vortex-container" id="vortexContainer">
     <div class="vortex-scene">
      <div class="vortex-group" data-group="profiles">
-      <div class="vortex-card" data-base-angle="0" data-index="0" data-profile="kesiaz" id="card-kesiaz" style="
+      <div class="vortex-card" data-base-angle="0" data-index="0" data-profile="oskar" id="card-oskar" style="
                 z-index: 200;
                 transform: translateX(-105px) translateY(5.15374px)
                   translateZ(0) rotateY(-3deg) rotateX(-8deg)
@@ -1372,13 +1372,13 @@
                 pointer-events: auto;
               ">
        <div class="card-face" style="transform: scale(1)">
-        <img alt="kesiaz" class="card-image" draggable="false" src="images/kesiaz.jpg"/>
+        <img alt="oskar" class="card-image" draggable="false" src="images/oskar.jpg"/>
         <div class="card-label">
-         kesiaz
+         oskar
         </div>
        </div>
       </div>
-      <div class="vortex-card" data-base-angle="3.141592653589793" data-index="1" data-profile="arrix" id="card-arrix" style="
+      <div class="vortex-card" data-base-angle="3.141592653589793" data-index="1" data-profile="leon" id="card-leon" style="
                 z-index: 200;
                 transform: translateX(105px) translateY(7.97996px) translateZ(0)
                   rotateY(3deg) rotateX(-8deg) rotateZ(1.36915deg);
@@ -1386,9 +1386,9 @@
                 pointer-events: auto;
               ">
        <div class="card-face" style="transform: scale(1)">
-        <img alt="arrix" class="card-image" draggable="false" src="images/arrix.jpg"/>
+        <img alt="leon" class="card-image" draggable="false" src="images/leon.jpg"/>
         <div class="card-label">
-         arrix
+         leon
         </div>
        </div>
       </div>
@@ -1451,13 +1451,13 @@
   <div class="profile-dimmer" id="profileDimmer">
   </div>
   <img alt="" class="profile-banner" draggable="false" id="profileBanner" src="images/bg.jpg"/>
-  <div class="profile-view" id="profile-kesiaz">
+  <div class="profile-view" id="profile-oskar">
    <div class="profile-card">
-    <img alt="kesiaz" class="card-image" draggable="false" src="images/kesiaz.jpg"/>
+    <img alt="oskar" class="card-image" draggable="false" src="images/oskar.jpg"/>
    </div>
    <div class="profile-info">
     <h2 class="profile-name">
-     kesiaz
+     oskar
     </h2>
     <p class="profile-tagline">
      „The things you own end up owning you.“
@@ -1472,13 +1472,13 @@
     </div>
    </div>
   </div>
-  <div class="profile-view" id="profile-arrix">
+  <div class="profile-view" id="profile-leon">
    <div class="profile-card">
-    <img alt="arrix" class="card-image" draggable="false" src="images/arrix.jpg"/>
+    <img alt="leon" class="card-image" draggable="false" src="images/leon.jpg"/>
    </div>
    <div class="profile-info">
     <h2 class="profile-name">
-     arrix
+     leon
     </h2>
     <p class="profile-tagline">
      the world isnt wrong it just is
@@ -1566,7 +1566,7 @@
      zoinbase — predayed
     </div>
     <div class="audio-artist-name" id="audioArtistName">
-     KESIAZ
+     OSKAR
     </div>
    </div>
    <div class="audio-progress-wrap" id="audioProgressWrap" title="Seek">
@@ -1842,12 +1842,12 @@
         audioArtistName = document.getElementById("audioArtistName"),
         audioProgressWrap = document.getElementById("audioProgressWrap"),
         audioProgressBar = document.getElementById("audioProgressBar"),
-        kesiazAudio1 = document.getElementById("kesiazAudio1"),
-        kesiazAudio2 = document.getElementById("kesiazAudio2"),
-        kesiazAudio3 = document.getElementById("kesiazAudio3"),
-        arrixAudio1 = document.getElementById("arrixAudio1"),
-        arrixAudio2 = document.getElementById("arrixAudio2"),
-        arrixAudio3 = document.getElementById("arrixAudio3"),
+        oskarAudio1 = document.getElementById("oskarAudio1"),
+        oskarAudio2 = document.getElementById("oskarAudio2"),
+        oskarAudio3 = document.getElementById("oskarAudio3"),
+        leonAudio1 = document.getElementById("leonAudio1"),
+        leonAudio2 = document.getElementById("leonAudio2"),
+        leonAudio3 = document.getElementById("leonAudio3"),
         jackAudio1 = document.getElementById("jackAudio1"),
         jackAudio2 = document.getElementById("jackAudio2"),
         jackAudio3 = document.getElementById("jackAudio3"),
@@ -1864,12 +1864,12 @@
         cardHoverSound = document.getElementById("cardHoverSound"),
         cardClickSound = document.getElementById("cardClickSound"),
         allAudio = [
-          kesiazAudio1,
-          kesiazAudio2,
-          kesiazAudio3,
-          arrixAudio1,
-          arrixAudio2,
-          arrixAudio3,
+          oskarAudio1,
+          oskarAudio2,
+          oskarAudio3,
+          leonAudio1,
+          leonAudio2,
+          leonAudio3,
           jackAudio1,
           jackAudio2,
           jackAudio3,
@@ -1888,29 +1888,29 @@
         userInteracted = !1,
         musicVolume = 0.5;
       const TRACK_METADATA = {
-        "kesiaz-1.mp3": {
+        "oskar-1.mp3": {
           title: "Private Reflection &mdash; Kevin MacLeod",
-          artist: "KESIAZ",
+          artist: "OSKAR",
         },
-        "kesiaz-2.mp3": {
+        "oskar-2.mp3": {
           title: "Lasting Hope &mdash; Kevin MacLeod",
-          artist: "KESIAZ",
+          artist: "OSKAR",
         },
-        "kesiaz-3.mp3": {
+        "oskar-3.mp3": {
           title: "Dreamlike &mdash; Kevin MacLeod",
-          artist: "KESIAZ",
+          artist: "OSKAR",
         },
-        "arrix-1.mp3": {
+        "leon-1.mp3": {
           title: "Club Diver &mdash; Kevin MacLeod",
-          artist: "ARRIX",
+          artist: "LEON",
         },
-        "arrix-2.mp3": {
+        "leon-2.mp3": {
           title: "Darkening Developments &mdash; Kevin MacLeod",
-          artist: "ARRIX",
+          artist: "LEON",
         },
-        "arrix-3.mp3": {
+        "leon-3.mp3": {
           title: "In a Heartbeat &mdash; Kevin MacLeod",
-          artist: "ARRIX",
+          artist: "LEON",
         },
         "jack-1.mp3": {
           title: "Unlight &mdash; Kevin MacLeod",
@@ -2000,14 +2000,14 @@
           : o.includes("Searching") || o.includes("Gomi")
             ? {
                 title: "Searching ◛⑅·˚ ༘ ♡ &mdash; Gomi",
-                artist: "ARRIX",
+                artist: "LEON",
               }
             : o.includes("narcissist")
-              ? { title: "narcissist &mdash; imsg", artist: "ARRIX" }
+              ? { title: "narcissist &mdash; imsg", artist: "LEON" }
               : o.includes("wasted")
                 ? {
                     title: "wasted &mdash; regressfromshawty",
-                    artist: "ARRIX",
+                    artist: "LEON",
                   }
                 : {
                     title:
@@ -2081,8 +2081,8 @@
         });
       }
       const PROFILE_TRACKS = {
-        kesiaz: [kesiazAudio1, kesiazAudio2, kesiazAudio3],
-        arrix: [arrixAudio1, arrixAudio2, arrixAudio3],
+        oskar: [oskarAudio1, oskarAudio2, oskarAudio3],
+        leon: [leonAudio1, leonAudio2, leonAudio3],
         jack: [jackAudio1, jackAudio2, jackAudio3],
         nici: [niciAudio1, niciAudio2, niciAudio3],
         julian: [julianAudio1, julianAudio2, julianAudio3],
@@ -2514,8 +2514,8 @@
         }),
         backBtn.addEventListener("click", showLanding));
       const VALID_PROFILES = [
-        "kesiaz",
-        "arrix",
+        "oskar",
+        "leon",
         "jack",
         "nici",
         "julian",

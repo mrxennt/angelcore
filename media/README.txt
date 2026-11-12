@@ -14,15 +14,15 @@ PROFIL-PLAYLISTS
   Alle Tracks: Kevin MacLeod (incompetech.com), Lizenz CC BY 4.0
   https://creativecommons.org/licenses/by/4.0/
 
-  kesiaz
-    kesiaz-1.mp3   Private Reflection
-    kesiaz-2.mp3   Lasting Hope
-    kesiaz-3.mp3   Dreamlike
+  oskar
+    oskar-1.mp3   Private Reflection
+    oskar-2.mp3   Lasting Hope
+    oskar-3.mp3   Dreamlike
 
-  arrix
-    arrix-1.mp3    Club Diver
-    arrix-2.mp3    Darkening Developments
-    arrix-3.mp3    In a Heartbeat
+  leon
+    leon-1.mp3    Club Diver
+    leon-2.mp3    Darkening Developments
+    leon-3.mp3    In a Heartbeat
 
   jack
     jack-1.mp3     Unlight
